@@ -13,3 +13,19 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+.container {
+  font-size: 18px;
+}
+
+.store-listing-header {
+  font-weight: bold;
+}
+
+.store-top-bar {
+  margin-bottom: 1em;
+}
+
+.store-order-field {
+  float: right;
+}

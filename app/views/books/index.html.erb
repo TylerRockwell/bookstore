@@ -1,2 +1,28 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
+<div class="row store-top-bar">
+  <div class="col-md-5 store-order-field">
+    <%= form_tag '/', method: :get do %>
+      Order books by:
+      <%= select_tag "sort_field", options_for_select(Book.sortable_fields), allow_blank: true %>
+      <%= select_tag "sort_order", options_for_select([['Ascending', 'ASC'],['Descending', 'DESC']]) %>
+      <%= submit_tag "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row store-listing-header">
+  <div class="col-md-2">Title</div>
+  <div class="col-md-2">Author</div>
+  <div class="col-md-2">Publish Date</div>
+  <div class="col-md-1">Price</div>
+  <div class="col-md-2">Category</div>
+</div>
+
+<% @books.each do |book| %>
+  <div class="row">
+    <div class="col-md-2 store-book-title"><%= book.title %></div>
+    <div class="col-md-2 store-book-author"><%= book.author %></div>
+    <div class="col-md-2 store-book-published-date"><%= book.published_date %></div>
+    <div class="col-md-1 store-book-price">$<%= book.price %></div>
+    <div class="col-md-2 store-book-category"><%= book.category %></div>
+  </div>
+<% end %>

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'draper'
 # Use bootstrap so it looks slightly less bad
 gem 'bootstrap-sass', '~> 3.3.6'
 # Use devise for authentication
