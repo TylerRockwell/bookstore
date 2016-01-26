@@ -1,6 +1,3 @@
 class Book < ActiveRecord::Base
-  validates :title,           presence: true
-  validates :published_date,  presence: true
-  validates :author,          presence: true
-  validates :price,           presence: true
+  validates_presence_of :title, :published_date, :author, :price
 end
