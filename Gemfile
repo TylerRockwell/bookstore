@@ -38,11 +38,12 @@ group :development, :test do
   gem 'pry-byebug'
   # Get some great fake data for seeds
   gem 'faker'
+  # Use rspec for testing suite
+  gem 'rspec-rails'
 end
 
 group :test do
-  # Use rspec for testing suite
-  gem 'rspec-rails'
+
 
   #Use factory_girl for test fixtures
   gem 'factory_girl_rails'
