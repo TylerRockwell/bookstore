@@ -14,7 +14,7 @@ RSpec.describe Book, type: :model do
       let!(:book_a){ create(:book, title: "Almost There: When to Give Up on Your Dreams") }
 
       it "returns all books sorted by title" do
-        expect(Book.order_by("title")).to eq([book_a, book_b])
+        expect(Book.order_by("title", "ASC")).to eq([book_a, book_b])
       end
     end
 
@@ -24,14 +24,15 @@ RSpec.describe Book, type: :model do
       let!(:middle_book){ create(:book, price: 34.99) }
 
       it "returns all books sorted by price" do
-        expect(Book.order_by("price")).to eq([cheap_book, middle_book, expensive_book])
+        expect(Book.order_by("price", "ASC")).to eq([cheap_book, middle_book, expensive_book])
       end
     end
   end
 
-  describe "#sortable_fields" do
+  describe ".sortable_fields" do
+    let(:book){ create(:book) }
     it "returns a list of all fields that can be used for sorting" do
-      expect(Book.sortable_fields).to eq(
+      expect(book.sortable_fields).to eq(
         ["Title", "Published Date", "Author", "Price", "Category"]
       )
     end

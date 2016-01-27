@@ -1,0 +1,10 @@
+<div class="row store-top-bar">
+  <div class="col-md-5 store-order-field">
+    <%= form_tag '/', method: :get do %>
+      Order books by:
+      <%= select_tag "sort_field", options_for_select(@books.first.sortable_fields), allow_blank: true %>
+      <%= select_tag "sort_order", options_for_select([['Ascending', 'ASC'],['Descending', 'DESC']]) %>
+      <%= submit_tag "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
