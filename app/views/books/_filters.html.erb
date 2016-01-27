@@ -1,19 +1,17 @@
 <div class="row store-top-bar">
-  <div class="col-md-5 store-search-field">
-    <%= form_tag '/', method: :get do %>
-      <%= label_tag "search" %>
-      <%= text_field_tag "search" %>
+  <div class="col-md-2"><%= link_to 'Home', root_path %></div>
 
+    <div class="col-md-10 store-order-field">
+      <%= form_tag '/', method: :get do %>
+        <%= label_tag "search" %>
+        <%= text_field_tag "search" %>
 
-  </div>
+        <%= label_tag "sort_field", "Order books by: "%>
+        <%= select_tag "sort_field", options_for_select(@sortable_fields) %>
+        <%= select_tag "sort_order",
+          options_for_select([['Ascending', 'ASC'],['Descending', 'DESC']]) %>
 
-
-  <div class="col-md-5 store-order-field">
-
-      Order books by:
-      <%= select_tag "sort_field", options_for_select(Book.sortable_fields), allow_blank: true %>
-      <%= select_tag "sort_order", options_for_select([['Ascending', 'ASC'],['Descending', 'DESC']]) %>
-      <%= submit_tag "Submit", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+        <%= submit_tag "Submit", class: "btn btn-primary" %>
+      <% end %>
+    </div>
 </div>

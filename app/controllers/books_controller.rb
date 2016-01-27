@@ -2,6 +2,7 @@ class BooksController < ApplicationController
   def index
     @books = Book.search(params[:search]).
       order_by(params[:sort_field], params[:sort_order])
+    @sortable_fields = Book.sortable_fields
   end
 
   def new

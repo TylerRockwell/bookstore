@@ -2,7 +2,6 @@ class Book < ActiveRecord::Base
   validates_presence_of :title, :published_date, :author, :price
 
   scope :by_published, -> { order(published_date: :desc) }
-  delegate :sortable_fields, to: :class
 
   def self.order_by(field, list_order)
     if field
