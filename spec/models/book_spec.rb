@@ -29,12 +29,43 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe ".sortable_fields" do
+  describe "#sortable_fields" do
     let(:book){ create(:book) }
     it "returns a list of all fields that can be used for sorting" do
       expect(book.sortable_fields).to eq(
         [:title, :published_date, :author, :price, :category]
       )
+    end
+  end
+
+  describe "#search" do
+    let(:matching_book){ create(:book,
+      title: "Cutting Corners: Using Your Business to Line Your Pockets",
+      published_date: Date.today,
+      author: "Roger Miyosaki",
+      category: "Non-fiction"
+      )
+    }
+    let(:irrelevant_book){ create(:book,
+      title: "Accounting? Who needs it?",
+      published_date: Date.today - 5.years,
+      author: "Grant Parker",
+      category: "Finance"
+      )
+    }
+
+    it "searches books on all user-facing fields" do
+      expect(Book.search("Corners")).to include(matching_book)
+      expect(Book.search("Corners")).to_not include(irrelevant_book)
+
+      expect(Book.search(Date.today.year)).to include(matching_book)
+      expect(Book.search(Date.today.year)).to_not include(irrelevant_book)
+
+      expect(Book.search("Roger")).to include(matching_book)
+      expect(Book.search("Roger")).to_not include(irrelevant_book)
+
+      expect(Book.search("Non-fiction")).to include(matching_book)
+      expect(Book.search("Non-fiction")).to_not include(irrelevant_book)
     end
   end
 end
