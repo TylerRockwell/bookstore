@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   def index
+    @books = Book.order_by(params[:sort_field], params[:sort_order])
   end
 
   def new
@@ -12,6 +13,9 @@ class BooksController < ApplicationController
   end
 
   def update
+  end
+
+  def show
   end
 
   def destroy
