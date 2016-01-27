@@ -20,8 +20,8 @@ RSpec.describe BooksController, type: :controller do
 
     it "sorts books by published_date" do
       send_request
-      [old_book, new_book]
-      expect(assigns(:books)).to eq([new_book, old_book])
+      [new_book, old_book]
+      expect(assigns(:books)).to eq([old_book, new_book])
     end
   end
 

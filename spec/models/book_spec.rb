@@ -33,7 +33,7 @@ RSpec.describe Book, type: :model do
     let(:book){ create(:book) }
     it "returns a list of all fields that can be used for sorting" do
       expect(book.sortable_fields).to eq(
-        ["Title", "Published Date", "Author", "Price", "Category"]
+        [:title, :published_date, :author, :price, :category]
       )
     end
   end
