@@ -3,7 +3,6 @@ class Book < ActiveRecord::Base
 
   scope :by_published, -> { order(published_date: :desc) }
 
-  self.per_page = 25
   def self.order_by(field, list_order)
     if field
       order(field => list_order)
