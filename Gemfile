@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'will_paginate', '~> 3.0.6'
+gem 'simple_form'
+# Use kaminari for pagination
+gem 'kaminari'
+
 gem 'draper'
 # Use bootstrap so it looks slightly less bad
 gem 'bootstrap-sass', '~> 3.3.6'

@@ -29,7 +29,7 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe "#sortable_fields" do
+  describe ".sortable_fields" do
     it "returns a list of all fields that can be used for sorting" do
       expect(Book.sortable_fields).to eq(
         [:title, :published_date, :author, :price, :category]
@@ -37,7 +37,7 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe "#search" do
+  describe ".search" do
     let(:matching_book){ create(:book,
       title: "Cutting Corners: Using Your Business to Line Your Pockets",
       published_date: Date.today,
