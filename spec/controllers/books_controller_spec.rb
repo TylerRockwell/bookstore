@@ -50,12 +50,43 @@ RSpec.describe BooksController, type: :controller do
     end
   end
 
-  # describe "POST #create" do
-  #   it "returns http success" do
-  #     get :create
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe "POST #create" do
+    context "when params are valid" do
+      let(:send_request){ post :create, valid_params }
+      let(:valid_params){
+        { book:
+          {
+            title: "The Beginner's Guide to Underwater Construction",
+            author: "Darryl Higgins",
+            published_date: Date.today,
+            price: 84.99,
+            category: "DIY"
+          }
+        }
+      }
+      it "creates a new book object" do
+        expect { send_request }.to change(Book, :count).by(1)
+      end
+    end
+
+    context "when params are invalid" do
+      let(:send_request){ post :create, valid_params }
+      let(:valid_params){
+        { book:
+          {
+            title: "The Beginner's Guide to Underwater Construction",
+            author: "Darryl Higgins",
+            published_date: Date.today,
+            category: "DIY"
+          }
+        }
+      }
+
+      it "does not create the book" do
+        expect { send_request }.to change(Book, :count).by(0)
+      end
+    end
+  end
 
   describe "GET #edit" do
     let(:params){ { id: book.id } }
