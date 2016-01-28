@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
   let(:book){ create(:book) }
-  let(:book_list){ create_list(:book, 50) }
-  let(:old_book){ create(:book, published_date: Date.today - 50.years)}
-  let(:new_book){ create(:book, published_date: Date.today) }
+  let(:book_list){ create_list(:book, 25) }
+
 
   describe "GET #index" do
 
@@ -22,6 +21,8 @@ RSpec.describe BooksController, type: :controller do
         expect(assigns(:books)).to eq(book_list)
       end
 
+      let(:old_book){ create(:book, published_date: Date.today - 50.years)}
+      let(:new_book){ create(:book, published_date: Date.today) }
       it "sorts books by published_date" do
         send_request
         [old_book, new_book]
@@ -32,7 +33,7 @@ RSpec.describe BooksController, type: :controller do
     context "when a user searches" do
       let(:send_request){ get :index, search_params }
       let(:search_params){ { search: "This Unique Book" } }
-      let!(:book_list){ create_list(:book, 50) }
+      let!(:book_list){ create_list(:book, 25) }
       let!(:matching_book){ create(:book, title: "This Unique Book") }
 
       it "should assign only matching books" do
