@@ -22,7 +22,6 @@ RSpec.describe BooksController, type: :controller do
   }
 
   describe "GET #index" do
-
     let(:send_request){ get :index }
     let(:sort_params){ { sort_field: "title", sort_order: "ASC" } }
 
@@ -76,7 +75,6 @@ RSpec.describe BooksController, type: :controller do
 
     context "when params are invalid" do
       let(:send_request){ post :create, book: invalid_params }
-
 
       it "does not create the book" do
         expect { send_request }.to change(Book, :count).by(0)
