@@ -8,3 +8,9 @@
     category: Faker::Book.genre
     )
 end
+
+User.create!(
+  email: "admin@example.com",
+  password: "password",
+  admin: true
+)
