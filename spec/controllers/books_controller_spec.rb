@@ -107,7 +107,16 @@ RSpec.describe BooksController, type: :controller do
     let(:send_request){ put :update, params}
     it "updates the data in a Book object" do
       send_request
-      expect(assigns(:book).reload.title).to eq(valid_params[:title])
+      expect(assigns(:book).title).to eq(valid_params[:title])
+    end
+  end
+
+  describe "PUT #update" do
+    let(:params){ { id: book.id } }
+    let(:send_request){ get :show, params}
+    it "updates the data in a Book object" do
+      send_request
+      expect(response).to have_http_status(:success)
     end
   end
 

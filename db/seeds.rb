@@ -4,6 +4,7 @@
     published_date: Faker::Date.between(100.years.ago, Date.today),
     author: Faker::Book.author,
     price: Faker::Number.decimal(2),
+    description: Faker::Hipster.paragraph(5),
     category: Faker::Book.genre
     )
 end
