@@ -3,7 +3,23 @@ require 'rails_helper'
 RSpec.describe BooksController, type: :controller do
   let(:book){ create(:book) }
   let(:book_list){ create_list(:book, 25) }
-
+  let(:valid_params){
+    {
+      title: "The Beginner's Guide to Underwater Construction",
+      author: "Darryl Higgins",
+      published_date: Date.today,
+      price: 84.99,
+      category: "DIY"
+    }
+  }
+  let(:invalid_params){
+    {
+      title: "The Beginner's Guide to Underwater Construction",
+      author: "Darryl Higgins",
+      published_date: Date.today,
+      category: "DIY"
+    }
+  }
 
   describe "GET #index" do
 
@@ -52,38 +68,23 @@ RSpec.describe BooksController, type: :controller do
 
   describe "POST #create" do
     context "when params are valid" do
-      let(:send_request){ post :create, valid_params }
-      let(:valid_params){
-        { book:
-          {
-            title: "The Beginner's Guide to Underwater Construction",
-            author: "Darryl Higgins",
-            published_date: Date.today,
-            price: 84.99,
-            category: "DIY"
-          }
-        }
-      }
+      let(:send_request){ post :create, book: valid_params }
       it "creates a new book object" do
         expect { send_request }.to change(Book, :count).by(1)
       end
     end
 
     context "when params are invalid" do
-      let(:send_request){ post :create, valid_params }
-      let(:valid_params){
-        { book:
-          {
-            title: "The Beginner's Guide to Underwater Construction",
-            author: "Darryl Higgins",
-            published_date: Date.today,
-            category: "DIY"
-          }
-        }
-      }
+      let(:send_request){ post :create, book: invalid_params }
+
 
       it "does not create the book" do
         expect { send_request }.to change(Book, :count).by(0)
+      end
+
+      it "renders the new template" do
+        send_request
+        expect(response).to render_template("new")
       end
     end
   end
@@ -95,20 +96,30 @@ RSpec.describe BooksController, type: :controller do
       send_request
       expect(response).to have_http_status(:success)
     end
+
+    it "assigns @book to the Book corresponding to id" do
+      send_request
+      expect(assigns(:book)).to eq(book)
+      expect(response).to have_http_status(:success)
+    end
   end
 
-  # describe "PUT #update" do
-  #   it "returns http success" do
-  #     get :update
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe "PUT #update" do
+    let(:params){ { id: book.id, book: valid_params  } }
+    let(:send_request){ put :update, params}
+    it "updates the data in a Book object" do
+      send_request
+      expect(assigns(:book).reload.title).to eq(valid_params[:title])
+    end
+  end
 
-  # describe "DELETE #destroy" do
-  #   it "returns http success" do
-  #     get :destroy
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe "DELETE #destroy" do
+    let!(:book){ create(:book) }
+    let(:params){ { id: book.id } }
+    let(:send_request){ delete :destroy, params}
+    it "destroys the Book object" do
+      expect { send_request }.to change(Book, :count).by(-1)
+    end
+  end
 
 end
