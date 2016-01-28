@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
   before_filter :authenticate_user!
+  before_action :check_admin, except: [:index, :show]
   before_action :set_book, only: [:edit, :update, :destroy, :show]
+
   def index
     @books = Book.search(params[:search]).
       order_by(params[:sort_field], params[:sort_order]).
@@ -47,6 +49,10 @@ class BooksController < ApplicationController
   end
 
   private
+
+  def check_admin
+    redirect_to books_path unless current_user.admin?
+  end
 
   def book_params
     params.require(:book).permit(:title, :author, :published_date, :price, :category)
