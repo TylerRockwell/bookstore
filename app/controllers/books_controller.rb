@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_book, only: [:edit, :update, :destroy, :show]
   def index
     @books = Book.search(params[:search]).

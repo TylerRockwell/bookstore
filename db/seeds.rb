@@ -8,3 +8,8 @@
     category: Faker::Book.genre
     )
 end
+
+Admin.create!(
+  email: "admin@example.com",
+  password: "password"
+)
