@@ -10,6 +10,11 @@
 end
 
 Admin.create!(
-  email: "admin@example.com",
+  email:    "admin@example.com",
+  password: "password"
+)
+
+User.create!(
+  email:    "user@example.com",
   password: "password"
 )
