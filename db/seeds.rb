@@ -9,8 +9,7 @@
     )
 end
 
-User.create!(
+Admin.create!(
   email: "admin@example.com",
-  password: "password",
-  admin: true
+  password: "password"
 )
