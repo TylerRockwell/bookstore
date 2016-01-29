@@ -1,0 +1,11 @@
+<div class="col-md-6 col-md-offset-2" >
+  <p id="book-show-title"> <%= @book.title %> </p>
+  <p id="book-show-author"> written by <%= @book.author %> </p>
+  <p> published <%= @book.published_date %> </p>
+  <h4> Synopsis: </h4>
+  <p> <%= @book.description %> </p>
+  <h4> Genre: </h4>
+  <p> <%= @book.category %> </p>
+
+  <h4> Buy it now for only $<%= @book.price %></h4>
+</div>
