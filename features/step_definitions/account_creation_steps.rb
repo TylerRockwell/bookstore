@@ -1,5 +1,6 @@
 Given(/^I do not have an account on the site$/) do
-  User.find_by_email('my_email@example.com') == nil
+  account = User.find_by(email: 'my_email@example.com')
+  account.delete_all if account
 end
 
 When(/^I visit the site root path$/) do
