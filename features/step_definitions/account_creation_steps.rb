@@ -28,6 +28,23 @@ When(/^I click the "([^"]*)" button$/) do |button_name|
   click_button button_name
 end
 
+When(/^I enter a password with incorrect confirmation$/) do
+  fill_in 'Password', with: 'password'
+  fill_in 'Password confirmation', with: 'awefohawoi;efhjo'
+end
+
+When(/^I enter "([^"]*)" as my email address$/) do |invalid_email|
+  fill_in 'Email', with: invalid_email
+end
+
+Then(/^I am notified that my email address is invalid\.$/) do
+  expect(page).to have_content("Email is invalid")
+end
+
+Then(/^I am notified that my password confirmation does not match$/) do
+  expect(page).to have_content("Password confirmation doesn't match")
+end
+
 Then(/^I am told to check my email for a confirmation link$/) do
   expect(page).to have_content('confirmation link has been sent to your email')
 end
