@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
+  let!(:sign_in_user){ sign_in create(:user) }
   let(:book){ create(:book) }
   let(:book_list){ create_list(:book, 25) }
   describe "GET #index" do

@@ -1,4 +1,5 @@
-class Admin::BooksController < AdminController
+class Admin::BooksController < ApplicationController
+  before_filter :authenticate_admin!
   before_action :set_book, only: [:edit, :update, :destroy, :show]
 
   def index
