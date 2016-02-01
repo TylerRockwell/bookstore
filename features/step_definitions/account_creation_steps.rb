@@ -1,5 +1,6 @@
 Given(/^I do not have an account on the site$/) do
-  User.find_by_email('my_email@example.com') == nil
+  account = User.find_by(email: 'my_email@example.com')
+  account.delete_all if account
 end
 
 When(/^I visit the site root path$/) do
@@ -25,6 +26,15 @@ end
 
 When(/^I click the "([^"]*)" button$/) do |button_name|
   click_button button_name
+end
+
+When(/^I enter a password with incorrect confirmation$/) do
+  fill_in 'Password', with: 'password'
+  fill_in 'Password confirmation', with: 'awefohawoi;efhjo'
+end
+
+Then(/^I am notified that my password confirmation does not match$/) do
+  expect(page).to have_content("Password confirmation doesn't match")
 end
 
 Then(/^I am told to check my email for a confirmation link$/) do
