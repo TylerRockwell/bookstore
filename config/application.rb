@@ -26,7 +26,7 @@ module Bookstore
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.default_options = {from: 'friendly.database@email.com'} #Can also set default from email here
+    config.action_mailer.default_options = {from: 'rails_bookstore@example.com'} #Can also set default from email here
     #Find these settings in Domain Information
     config.action_mailer.smtp_settings = {
       address:              'smtp.mailgun.org',
