@@ -1,3 +1,4 @@
+Book.destroy_all
 250.times do
   Book.create!(
     title: Faker::Book.title,
@@ -9,7 +10,19 @@
     )
 end
 
+Admin.destroy_all
+
 Admin.create!(
   email:    "admin@example.com",
   password: "password"
 )
+
+order_status_attrs = [
+  { name: "In Progress" },
+  { name: "Placed" },
+  { name: "Shipped" },
+  { name: "Cancelled" }
+]
+OrderStatus.destroy_all
+
+OrderStatus.create!(order_status_attrs)
