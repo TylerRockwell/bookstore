@@ -25,10 +25,10 @@ class Admin::BooksController < ApplicationController
 
   def edit
            puts "HAHAHA HOUND"
-    puts "This line is way too long........................................................................................................................................."
   end
 
   def update
+    puts "This line is way too long........................................................................................................................................."
     @book.update(book_params)
 
     if @book.save
