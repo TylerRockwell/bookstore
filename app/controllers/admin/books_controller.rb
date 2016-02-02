@@ -17,7 +17,7 @@ class Admin::BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      redirect_to books_path, notice: "Book was successfully created"
+      redirect_to admin_books_path, notice: "Book was successfully created"
     else
       render :new
     end
@@ -30,7 +30,7 @@ class Admin::BooksController < ApplicationController
     @book.update(book_params)
 
     if @book.save
-      redirect_to books_path, notice: "Book was successfully updated"
+      redirect_to admin_books_path, notice: "Book was successfully updated"
     else
       render :update
     end
@@ -41,9 +41,9 @@ class Admin::BooksController < ApplicationController
 
   def destroy
     if @book.destroy
-      redirect_to books_path, notice: "Book was successfully destroyed"
+      redirect_to admin_books_path, notice: "Book was successfully destroyed"
     else
-      redirect_to books_path, alert: "Unable to destroy book"
+      redirect_to admin_books_path, alert: "Unable to destroy book"
     end
   end
 
