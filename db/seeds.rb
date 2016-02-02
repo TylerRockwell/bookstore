@@ -1,3 +1,4 @@
+Book.delete_all
 250.times do
   Book.create!(
     title: Faker::Book.title,
@@ -9,7 +10,13 @@
     )
 end
 
+Admin.delete_all
 Admin.create!(
   email:    "admin@example.com",
   password: "password"
 )
+User.delete_all
+User.create!(
+  email:    "user@example.com",
+  password: "password"
+).confirm

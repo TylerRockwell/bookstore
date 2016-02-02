@@ -48,11 +48,9 @@ group :development, :test do
 end
 
 group :test do
-
-
-  #Use factory_girl for test fixtures
   gem 'factory_girl_rails'
   gem 'cucumber-rails', require: false
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'shoulda-matchers', '~> 3.0'
 end
