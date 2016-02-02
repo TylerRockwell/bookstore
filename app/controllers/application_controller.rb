@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(admin)
     admin_dashboard_index_path
   end
+
+  def after_sign_in_path_for(user)
+    books_path
+  end
 end
