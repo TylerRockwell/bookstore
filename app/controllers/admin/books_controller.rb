@@ -24,6 +24,7 @@ class Admin::BooksController < ApplicationController
   end
 
   def edit
+           puts "HAHAHA HOUND"
   end
 
   def update
