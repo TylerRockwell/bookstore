@@ -50,7 +50,7 @@ Then(/^I am told to check my email for a confirmation link$/) do
 end
 
 Then(/^I am sent a confirmation email$/) do
-  last_email != nil
+  !last_email.nil?
 end
 
 When(/^I visit the link in that email$/) do
@@ -59,5 +59,5 @@ When(/^I visit the link in that email$/) do
 end
 
 Then(/^My email address becomes confirmed$/) do
-  User.last.confirmed_at != nil
+  !User.last.confirmed_at.nil?
 end

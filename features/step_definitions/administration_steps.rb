@@ -19,11 +19,11 @@ Given(/^I am logged into the site$/) do
 end
 
 Given(/^there is a book named "([^"]*)"$/) do |book_title|
-  FactoryGirl.create(:book, title: book_title )
+  FactoryGirl.create(:book, title: book_title)
 end
 
 Given(/^there is a book named "([^"]*)" valued at "([^"]*)"$/) do |book_title, price|
-  FactoryGirl.create(:book, title: book_title, price: price )
+  FactoryGirl.create(:book, title: book_title, price: price)
 end
 
 When(/^I click "([^"]*)" for the book "([^"]*)"$/) do |link_text, book_title|
