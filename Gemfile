@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 gem 'simple_form'
 # Use kaminari for pagination
 gem 'kaminari'
-
+gem 'rubocop'
+gem 'rubocop-git'
 gem 'draper'
 # Use bootstrap so it looks slightly less bad
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -48,11 +49,9 @@ group :development, :test do
 end
 
 group :test do
-
-
-  #Use factory_girl for test fixtures
   gem 'factory_girl_rails'
   gem 'cucumber-rails', require: false
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'shoulda-matchers', '~> 3.0'
 end

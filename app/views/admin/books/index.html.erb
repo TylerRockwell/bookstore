@@ -1,5 +1,10 @@
 <%= render 'filters' %>
 
+<p>
+  <%= button_to 'Add a Book', new_admin_book_path,
+    method: :get, class: "btn btn-primary" %>
+</p>
+
 <div class="row store-listing-header">
   <div class="col-md-3">Title</div>
   <div class="col-md-2">Author</div>
@@ -16,6 +21,14 @@
       <div class="col-md-2 store-book-published-date"><%= book.published_date %></div>
       <div class="col-md-1 store-book-price">$<%= book.price %></div>
       <div class="col-md-2 store-book-category"><%= book.category %></div>
+      <div class="col-md-1 store-book-edit">
+        <%= link_to 'Edit', edit_admin_book_path(book) %>
+      </div>
+      <div class="col-md-1 store-book-delete">
+        <%= link_to 'Delete', admin_book_path(book), method: :delete,
+          data: { confirm: 'Are you sure?' } %>
+      </div>
+
     </div>
   <% end %>
 </div>

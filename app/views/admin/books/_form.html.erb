@@ -2,15 +2,15 @@
 
   <p> Enter the book's details. * Denotes a required field </p>
 
-  <%= simple_form_for(@book, html: { class: 'form-horizontal' }) do |f| %>
+  <%= simple_form_for([:admin, @book], html: { class: 'form-horizontal' }) do |f| %>
 
     <%= f.input :title %>
     <%= f.input :author %>
-    <%= f.input :published_date %>
+    <%= f.input :published_date, as: "text" %>
     <%= f.input :price %>
     <%= f.input :category %>
 
-    <%= f.button :submit %>
-    
+    <%= f.button :submit, "Submit" %>
+
   <% end %>
 </div>
