@@ -1,0 +1,5 @@
+inherit_from: config/style_guides/ruby.yml
+
+AllCops:
+  Rails:
+    Enabled: true
