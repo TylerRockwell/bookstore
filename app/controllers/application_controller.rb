@@ -10,11 +10,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(admin)
-    admin_dashboard_index_path
-  end
-
-  def after_sign_in_path_for(user)
-    books_path
+  def after_sign_in_path_for(resource)
+    if resource.class == Admin
+      admin_dashboard_index_path
+    else
+      books_path
+    end
   end
 end
