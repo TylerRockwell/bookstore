@@ -7,7 +7,7 @@ Book.delete_all
     price: Faker::Number.decimal(2),
     description: Faker::Hipster.paragraph(5),
     category: Faker::Book.genre
-    )
+  )
 end
 
 Admin.delete_all

@@ -3,9 +3,9 @@ class Admin::BooksController < ApplicationController
   before_action :set_book, only: [:edit, :update, :destroy, :show]
 
   def index
-    @books = Book.search(params[:search]).
-      order_by(params[:sort_field], params[:sort_order]).
-      page(params[:page])
+    @books = Book.search(params[:search])
+                 .order_by(params[:sort_field], params[:sort_order])
+                 .page(params[:page])
     @sortable_fields = Book.sortable_fields
   end
 
