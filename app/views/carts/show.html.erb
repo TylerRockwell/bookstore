@@ -1,0 +1,21 @@
+<div class="row cart-listing-header">
+  <div class="col-md-3">Item</div>
+  <div class="col-md-2">Unit Price</div>
+  <div class="col-md-1">Quantity</div>
+  <div class="col-md-2">Item Total</div>
+</div>
+
+<div class="cart-item-list">
+  <% @order_items.each do |item| %>
+    <div class="row">
+      <div class="col-md-3 cart-item-title"><%= link_to item.title, book_path(item.book) %></div>
+      <div class="col-md-2 cart-item-unit_price">$<%= item.unit_price %></div>
+      <div class="col-md-1 cart-item-quantity"><%= item.quantity %></div>
+      <div class="col-md-2 cart-item-total_price">$<%= item.total_price %></div>
+    </div>
+  <% end %>
+  <div class="row cart-total-row">
+    <div class="col-md-2 col-md-offset-4"> Total for this order: </div>
+    <div class="col-md-2 cart-total">$<%= @order.total %></div>
+  </div>
+</div>

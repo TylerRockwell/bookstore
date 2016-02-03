@@ -16,4 +16,12 @@ class ApplicationController < ActionController::Base
       books_path
     end
   end
+
+  def current_order
+    if session[:order_id].nil?
+      Order.new(user: current_user)
+    else
+      Order.find_by(id: session[:order_id])
+    end
+  end
 end
