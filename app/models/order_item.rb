@@ -1,16 +1,18 @@
 class OrderItem < ActiveRecord::Base
   belongs_to :book
   belongs_to :order
-
-  before_save :set_unit_price_and_total
+  belongs_to :cart
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
-  validates :book, :order, presence: true
+  validates :book, presence: true
 
-  private
+  delegate :title, to: :book
 
-  def set_unit_price_and_total
-    self.unit_price = book.price
-    self.total_price = unit_price * quantity
+  def unit_price
+    book.price
+  end
+
+  def total_price
+    unit_price * quantity
   end
 end

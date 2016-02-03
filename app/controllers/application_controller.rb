@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
       books_path
     end
   end
+
+  def cart
+    current_user.cart || Cart.create(user: current_user)
+  end
 end
