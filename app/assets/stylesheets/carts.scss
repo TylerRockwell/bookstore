@@ -5,3 +5,16 @@
 .cart-total-row {
   margin-top: 5%;
 }
+
+.cart-item-quantity input[type='text'] {
+  width: 50px;
+  text-align: right;
+}
+
+.cart-quantity-submit {
+  float: right;
+}
+
+.cart-item-row {
+  margin-bottom: 1em;
+}

@@ -15,7 +15,11 @@ Given(/^I am logged into the admin panel$/) do
 end
 
 Given(/^I am logged into the site$/) do
-  expect(page).to have_content("Signed in successfully")
+  FactoryGirl.create(:user, email: "user@example.com", password: "password").confirm
+  visit "/users/sign_in"
+  fill_in "Email", with: "user@example.com"
+  fill_in "Password", with: "password"
+  click_button "Log in"
 end
 
 Given(/^there is a book named "([^"]*)"$/) do |book_title|

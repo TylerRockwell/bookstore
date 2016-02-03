@@ -20,8 +20,6 @@ RSpec.describe OrderItem, type: :model do
     end
 
     it "sets the unit price and total of an OrderItem" do
-      expect(order_item.unit_price).to eq(nil)
-      expect(order_item.total_price).to eq(nil)
       order_item.save
       expect(order_item.unit_price).to eq(book.price)
       expect(order_item.total_price).to eq(book.price * 5)

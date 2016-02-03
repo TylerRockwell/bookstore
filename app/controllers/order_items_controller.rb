@@ -1,4 +1,5 @@
 class OrderItemsController < ApplicationController
+  before_action :set_order, only: [:update, :destroy]
   def create
     @order = current_order
     @order_item = @order.order_items.new(order_item_params)
@@ -12,7 +13,8 @@ class OrderItemsController < ApplicationController
 
   def update
     if @order_item.update(order_item_params)
-      redirect_to cart_path(current_order), notice: "Item updated"
+      current_order.save
+      redirect_to cart_path(current_order)
     else
       redirect_to cart_path(current_order), alert: "Item could not be updated"
     end
@@ -20,7 +22,8 @@ class OrderItemsController < ApplicationController
 
   def destroy
     if @order_item.destroy
-      redirect_to cart_path(current_order), notice: "Item was removed from your cart"
+      current_order.save
+      redirect_to cart_path(current_order)
     else
       redirect_to cart_path(current_order), alert: "Item could not be removed"
     end
@@ -29,7 +32,7 @@ class OrderItemsController < ApplicationController
   private
 
   def set_order
-    @order = Order.find(params[:id])
+    @order_item = current_order.order_items.find_by(id: params[:id])
   end
 
   def order_item_params
