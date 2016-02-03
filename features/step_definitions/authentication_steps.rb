@@ -1,17 +1,17 @@
 Given(/^I have an account on the site$/) do
-  FactoryGirl.create(:user, email: "user@example.com", password: "password")
+  @user = FactoryGirl.create(:user, email: "user@example.com", password: "password")
 end
 
 Given(/^My account is confirmed$/) do
-  User.last.confirm
+  @user.confirm
 end
 
 When(/^I enter my correct email$/) do
-  fill_in "Email", with: "user@example.com"
+  fill_in "Email", with: @user.email
 end
 
 When(/^I enter my password$/) do
-  fill_in "Password", with: "password"
+  fill_in "Password", with: @user.password
 end
 
 Then(/^I am redirected to the book index page$/) do
