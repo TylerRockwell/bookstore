@@ -15,7 +15,8 @@ Given(/^I am logged into the admin panel$/) do
 end
 
 Given(/^I am logged into the site$/) do
-  FactoryGirl.create(:user, email: "user@example.com", password: "password").confirm
+  @user = FactoryGirl.create(:user, email: "user@example.com", password: "password")
+  @user.confirm
   visit "/users/sign_in"
   fill_in "Email", with: "user@example.com"
   fill_in "Password", with: "password"

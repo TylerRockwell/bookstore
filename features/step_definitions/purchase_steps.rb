@@ -21,10 +21,9 @@ When(/^I visit my cart$/) do
 end
 
 Then(/^the book is added to my cart$/) do
-  last_order = Order.last
-  last_order_item = last_order.order_items.last
-
-  expect(last_order.order_items).to_not eq(nil)
+  @cart = @user.cart
+  expect(@cart.order_items).to_not eq(nil)
+  last_order_item = @cart.order_items.last
   expect(last_order_item.book).to eq(@book)
 end
 
@@ -33,10 +32,10 @@ Then(/^I see the book in my cart$/) do
 end
 
 Then(/^the book is added to my cart with quantity (\d+)$/) do |number|
-  last_order = Order.last
-  last_order_item = last_order.order_items.last
+  @cart = @user.cart
+  last_order_item = @cart.order_items.last
 
-  expect(last_order.order_items).to_not eq(nil)
+  expect(@cart.order_items).to_not eq(nil)
   expect(last_order_item.book).to eq(@book)
   expect(last_order_item.quantity).to eq(number.to_i)
 end

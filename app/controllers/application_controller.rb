@@ -24,4 +24,8 @@ class ApplicationController < ActionController::Base
       Order.find_by(id: session[:order_id])
     end
   end
+
+  def cart
+    current_user.cart || Cart.create(user: current_user)
+  end
 end
