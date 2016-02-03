@@ -17,14 +17,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_order
-    if session[:order_id].nil?
-      Order.new(user: current_user)
-    else
-      Order.find_by(id: session[:order_id])
-    end
-  end
-
   def cart
     current_user.cart || Cart.create(user: current_user)
   end
