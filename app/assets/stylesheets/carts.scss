@@ -1,14 +1,10 @@
-// Place all the styles related to the Carts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .cart-total-row {
   margin-top: 5%;
 }
 
-.cart-item-quantity input[type='text'] {
-  width: 50px;
+.cart-item-quantity .cart-quantity-field {
   text-align: right;
+  width: 50px;
 }
 
 .cart-quantity-submit {
