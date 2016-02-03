@@ -2,6 +2,6 @@ FactoryGirl.define do
   factory :order_item do
     book
     order
-    quantity 5
+    quantity 1
   end
 end
