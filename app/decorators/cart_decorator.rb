@@ -12,6 +12,6 @@ class CartDecorator < Draper::Decorator
   end
 
   def checkout_button
-    link_to "Checkout", new_charge_path, class: "btn btn-primary" if total > 0
+    button_to "Checkout", new_charge_path, method: :get, class: "btn btn-primary" if total > 0
   end
 end

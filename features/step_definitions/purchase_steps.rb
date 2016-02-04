@@ -42,5 +42,5 @@ end
 
 Then(/^I see the book in my cart with quantity (\d+)$/) do |number|
   expect(page).to have_content(@book.title)
-  find(:css, "#line_item_quantity").value == number
+  find(:css, "#line_item_quantity") == number
 end
