@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   before_create :set_order_status
   before_save   :update_total
 
-  def total
+  def calculate_total
     order_items.inject(0) { |sum, item| sum + item.total_price }
   end
 
@@ -17,6 +17,6 @@ class Order < ActiveRecord::Base
   end
 
   def update_total
-    self.total = total
+    self.total = calculate_total
   end
 end

@@ -1,7 +1,6 @@
 class Cart < ActiveRecord::Base
   belongs_to  :user
-  has_many    :line_items#, inverse_of: :cart
-
+  has_many    :line_items
   def total
     line_items.inject(0) { |sum, item| sum + item.total_price }
   end
