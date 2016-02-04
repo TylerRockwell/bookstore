@@ -12,6 +12,6 @@ class User < ActiveRecord::Base
   private
 
   def build_cart
-    cart ||= Cart.create(user: self)
+    cart || Cart.create(user: self)
   end
 end

@@ -12,4 +12,8 @@ class Cart < ActiveRecord::Base
   def stripe_total
     (total * 100).to_i
   end
+
+  def empty
+    line_items.destroy_all
+  end
 end

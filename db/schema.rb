@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204172648) do
+ActiveRecord::Schema.define(version: 20160204211155) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20160204172648) do
     t.decimal  "total_price", precision: 12, scale: 3
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.integer  "cart_id"
   end
 
   add_index "order_items", ["book_id"], name: "index_order_items_on_book_id"
