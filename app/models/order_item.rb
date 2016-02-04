@@ -6,13 +6,14 @@ class OrderItem < ActiveRecord::Base
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :book, presence: true
 
+  before_create :set_prices
+
   delegate :title, to: :book
 
-  def unit_price
-    book.price
-  end
+  private
 
-  def total_price
-    unit_price * quantity
+  def set_prices
+    self.unit_price = book.price
+    self.total_price = unit_price * quantity
   end
 end

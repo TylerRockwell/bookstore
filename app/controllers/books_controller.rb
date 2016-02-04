@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @order_item = cart.order_items.new
+    @line_item = cart.line_items.new
   end
 
   private

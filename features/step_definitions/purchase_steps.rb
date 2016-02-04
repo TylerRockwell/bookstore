@@ -8,7 +8,7 @@ When(/^I click on a book$/) do
 end
 
 When(/^I adjust the quantity of the book to (\d+)$/) do |number|
-  fill_in "order_item_quantity", with: number
+  fill_in "line_item_quantity", with: number
   click_button("Update")
 end
 
@@ -22,9 +22,9 @@ end
 
 Then(/^the book is added to my cart$/) do
   @cart = @user.cart
-  expect(@cart.order_items).to_not eq(nil)
-  last_order_item = @cart.order_items.last
-  expect(last_order_item.book).to eq(@book)
+  expect(@cart.line_items).to_not eq(nil)
+  last_line_item = @cart.line_items.last
+  expect(last_line_item.book).to eq(@book)
 end
 
 Then(/^I see the book in my cart$/) do
@@ -33,14 +33,14 @@ end
 
 Then(/^the book is added to my cart with quantity (\d+)$/) do |number|
   @cart = @user.cart
-  last_order_item = @cart.order_items.last
+  last_line_item = @cart.line_items.last
 
-  expect(@cart.order_items).to_not eq(nil)
-  expect(last_order_item.book).to eq(@book)
-  expect(last_order_item.quantity).to eq(number.to_i)
+  expect(@cart.line_items).to_not eq(nil)
+  expect(last_line_item.book).to eq(@book)
+  expect(last_line_item.quantity).to eq(number.to_i)
 end
 
 Then(/^I see the book in my cart with quantity (\d+)$/) do |number|
   expect(page).to have_content(@book.title)
-  find(:css, "#order_item_quantity").value == number
+  find(:css, "#line_item_quantity").value == number
 end

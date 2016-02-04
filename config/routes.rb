@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :admins, path: 'admin'
   devise_for :users
   resources :books, only: [:index, :show]
+  resources :line_items, only: [:create, :update, :destroy]
   resources :order_items, only: [:create, :update, :destroy]
   resources :carts, only: :show
   namespace :admin do
