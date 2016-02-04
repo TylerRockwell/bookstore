@@ -1,15 +1,16 @@
 class Cart < ActiveRecord::Base
   belongs_to  :user
   has_many    :line_items
-  before_save :update_total
 
-  def calculate_total
+  def total
     line_items.inject(0) { |sum, item| sum + item.total_price }
   end
 
-  private
+  def number_items_in_cart
+    line_items.count
+  end
 
-  def update_total
-    self.total = calculate_total
+  def stripe_total
+    (total * 100).to_i
   end
 end
