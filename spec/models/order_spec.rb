@@ -4,7 +4,7 @@ RSpec.describe Order, type: :model do
   it { is_expected.to belong_to(:user) }
   it { is_expected.to have_many(:order_items) }
 
-  describe "#calculate_total" do
+  describe "#total" do
     let!(:order) { create(:order) }
     let!(:item_1) { create(:order_item, order: order) }
     let!(:item_2) { create(:order_item, order: order) }

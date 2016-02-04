@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   def show
-    @cart = cart
+    @cart = cart.decorate
     @line_items = cart.line_items
   end
 end
