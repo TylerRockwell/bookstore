@@ -6,11 +6,9 @@ RSpec.describe Cart, type: :model do
 
   describe "#total" do
     let(:cart) { create(:cart) }
-    let(:item_1) { create(:line_item, cart: cart) }
-    let(:item_2) { create(:line_item, cart: cart) }
+    let!(:item_1) { create(:line_item, cart: cart) }
+    let!(:item_2) { create(:line_item, cart: cart) }
     it "calculates the total price for the order" do
-      cart.line_items << item_1
-      cart.line_items << item_2
       expect(cart.total).to eq(item_1.total_price + item_2.total_price)
     end
 
