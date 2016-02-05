@@ -11,7 +11,9 @@ class CartDecorator < Draper::Decorator
     number_to_currency(total)
   end
 
-  def checkout_button
-    link_to "Checkout", new_charge_path, class: "btn btn-primary" if total > 0
+  def purchase_button
+    if line_items.count > 0
+      button_to "Purchase", new_charge_path, method: :get, class: "btn btn-primary"
+    end
   end
 end

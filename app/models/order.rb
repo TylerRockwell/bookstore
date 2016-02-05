@@ -10,6 +10,16 @@ class Order < ActiveRecord::Base
     order_items.inject(0) { |sum, item| sum + item.total_price }
   end
 
+  def add_items_from(cart)
+    cart.line_items.each do |cart_item|
+      OrderItem.create(
+        order:      self,
+        book:       cart_item.book,
+        quantity:   cart_item.quantity
+      )
+    end
+  end
+
   private
 
   def set_order_status

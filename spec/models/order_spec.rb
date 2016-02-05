@@ -3,6 +3,8 @@ RSpec.describe Order, type: :model do
   it { is_expected.to belong_to(:order_status) }
   it { is_expected.to belong_to(:user) }
   it { is_expected.to have_many(:order_items) }
+  it { is_expected.to have_one(:billing_address) }
+  it { is_expected.to have_one(:shipping_address) }
 
   describe "#total" do
     let!(:order) { create(:order) }

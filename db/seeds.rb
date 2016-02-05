@@ -22,7 +22,7 @@ order_status_attrs = [
   { name: "Cancelled" }
 ]
 
-OrderStatus.destroy_all
+OrderStatus.delete_all
 OrderStatus.create!(order_status_attrs)
 
 User.delete_all
