@@ -2,6 +2,8 @@ class Order < ActiveRecord::Base
   belongs_to :order_status
   belongs_to :user
   has_many   :order_items
+  has_one    :billing_address,  class_name: Address
+  has_one    :shipping_address, class_name: Address
 
   before_create :set_order_status
   before_save   :update_total
@@ -13,7 +15,7 @@ class Order < ActiveRecord::Base
   def add_items_from(cart)
     cart.line_items.each do |cart_item|
       OrderItem.create(
-        order: self,
+        order:      self,
         book:       cart_item.book,
         quantity:   cart_item.quantity
       )
