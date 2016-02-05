@@ -13,7 +13,7 @@ class CartDecorator < Draper::Decorator
 
   def purchase_button
     if line_items.count > 0
-      button_to "Purchase", new_charge_path, method: :get, class: "btn btn-primary"
+      button_to "Purchase", new_order_path, method: :get, class: "btn btn-primary"
     end
   end
 end
