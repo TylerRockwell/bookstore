@@ -20,8 +20,8 @@ RSpec.describe OrderItem, type: :model do
 
     it "sets the unit price and total of an OrderItem" do
       order_item.save
-      expect(order_item.unit_price).to eq(book.price)
-      expect(order_item.total_price).to eq(book.price * 5)
+      expect(order_item.unit_price.round(2)).to eq(book.price.round(2))
+      expect(order_item.total_price.round(2)).to eq((book.price * 5).round(2))
     end
   end
 end

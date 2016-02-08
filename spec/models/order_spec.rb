@@ -13,7 +13,7 @@ RSpec.describe Order, type: :model do
     it "calculates the total price for the order" do
       order.order_items << item_1
       order.order_items << item_2
-      expect(order.calculate_total).to eq(item_1.total_price + item_2.total_price)
+      expect(order.total).to eq(item_1.total_price + item_2.total_price)
     end
   end
 end

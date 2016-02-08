@@ -1,23 +1,25 @@
 
 <%= simple_form_for(@order, html: { class: 'form-horizontal' }) do |f| %>
-  <h2> Shipping Address </h2>
-  <%= f.fields_for :shipping_address do |sa| %>
-    <%= sa.input :street_number %>
-    <%= sa.input :street_name %>
-    <%= sa.input :city %>
-    <%= sa.input :state %>
-    <%= sa.input :zip %>
-  <% end %>
+  <div class="shipping-address">
+    <h2> Shipping Address </h2>
+    <%= f.fields_for :shipping_address do |sa| %>
+      <%= sa.input :street_number %>
+      <%= sa.input :street_name %>
+      <%= sa.input :city %>
+      <%= sa.input :state %>
+      <%= sa.input :zip %>
+    <% end %>
+  </div>
 
-  <h2> Billing Address </h2>
-
-  <%= f.fields_for :billing_address do |ba| %>
-    <%= ba.input :street_number %>
-    <%= ba.input :street_name %>
-    <%= ba.input :city %>
-    <%= ba.input :state %>
-    <%= ba.input :zip %>
-  <% end %>
-
-  <%= f.button :submit, "Next" %>
+  <div class="billing-address">
+    <h2> Billing Address </h2>
+    <%= f.fields_for :billing_address do |ba| %>
+      <%= ba.input :street_number %>
+      <%= ba.input :street_name %>
+      <%= ba.input :city %>
+      <%= ba.input :state %>
+      <%= ba.input :zip %>
+    <% end %>
+  </div>
+  <%= f.button :submit, "Submit Order" %>
 <% end %>

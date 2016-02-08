@@ -16,8 +16,8 @@ Admin.create!(
   password: "password"
 )
 order_status_attrs = [
-  { name: "In Progress" },
-  { name: "Placed" },
+  { name: "Pending" },
+  { name: "Payment Complete" },
   { name: "Shipped" },
   { name: "Cancelled" }
 ]

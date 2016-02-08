@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find_by(id: params[:id])
+    @order = Order.includes(:order_items).find_by(id: params[:id])
     @order_items = @order.order_items
   end
 
