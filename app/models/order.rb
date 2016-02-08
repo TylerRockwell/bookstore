@@ -2,8 +2,8 @@ class Order < ActiveRecord::Base
   belongs_to :order_status
   belongs_to :user
   has_many   :order_items
-  has_one    :billing_address,  class_name: Address
-  has_one    :shipping_address, class_name: Address
+  has_one    :billing_address,  class_name: Address, inverse_of: :order
+  has_one    :shipping_address, class_name: Address, inverse_of: :order
 
   accepts_nested_attributes_for :billing_address
   accepts_nested_attributes_for :shipping_address
@@ -33,6 +33,6 @@ class Order < ActiveRecord::Base
   private
 
   def set_order_status
-    self.order_status_id = 1
+    self.order_status_id = 1 # 'Pending'
   end
 end
