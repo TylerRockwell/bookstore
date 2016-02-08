@@ -16,7 +16,7 @@ RSpec.describe OrderItem, type: :model do
     let(:order_item) { create(:order_item) }
 
     it "sets the unit price and total of an OrderItem" do
-      order_item.set_item_data(line_item)
+      order_item.copy_data_from(line_item)
       order_item.save
       expect(order_item.unit_price).to eq(BigDecimal.new(line_item.unit_price, 12))
       expect(order_item.total_price).to eq(BigDecimal.new((line_item.unit_price * 5), 12))

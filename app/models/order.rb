@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
 
   def build_order_item(line_item)
     order_item = order_items.build
-    order_item.set_item_data(line_item)
+    order_item.copy_data_from(line_item)
   end
 
   def stripe_total
@@ -36,7 +36,7 @@ class Order < ActiveRecord::Base
   private
 
   def set_order_status
-    #Temporary solution
+    # Temporary solution
     self.order_status = OrderStatus.find_by(name: "Pending")
   end
 end
