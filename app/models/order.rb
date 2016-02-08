@@ -12,20 +12,21 @@ class Order < ActiveRecord::Base
 
   delegate :name, to: :order_status, prefix: true
 
-  scope :pending, -> { where(order_status_id: 1) }
+  scope :pending, -> { where(order_status_id: OrderStatus.find_by(name: "Pending")) }
 
   def total
     order_items.inject(0) { |sum, item| sum + item.total_price }
   end
 
   def add_items_from(cart)
-    cart.line_items.each do |cart_item|
-      OrderItem.create(
-        order:      self,
-        book:       cart_item.book,
-        quantity:   cart_item.quantity
-      )
+    cart.line_items.each do |line_item|
+      build_order_item(line_item)
     end
+  end
+
+  def build_order_item(line_item)
+    order_item = order_items.build
+    order_item.set_item_data(line_item)
   end
 
   def stripe_total
@@ -35,6 +36,7 @@ class Order < ActiveRecord::Base
   private
 
   def set_order_status
-    self.order_status_id = 1 # 'Pending'
+    #Temporary solution
+    self.order_status = OrderStatus.find_by(name: "Pending")
   end
 end

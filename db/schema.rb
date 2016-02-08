@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205195517) do
+ActiveRecord::Schema.define(version: 20160208203143) do
 
   create_table "address_types", force: :cascade do |t|
     t.string   "name"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160205195517) do
     t.decimal  "total_price", precision: 12, scale: 3
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.string   "book_title"
   end
 
   add_index "order_items", ["book_id"], name: "index_order_items_on_book_id"

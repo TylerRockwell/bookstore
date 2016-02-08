@@ -15,6 +15,7 @@ Admin.create!(
   email:    "admin@example.com",
   password: "password"
 )
+
 order_status_attrs = [
   { name: "Pending" },
   { name: "Payment Complete" },

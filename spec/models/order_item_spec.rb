@@ -2,26 +2,24 @@ require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
   describe "associations" do
-    it { is_expected.to belong_to(:book) }
     it { is_expected.to belong_to(:order) }
   end
 
   describe "validations" do
-    it { is_expected.to validate_presence_of(:book) }
+    it { is_expected.to validate_presence_of(:book_title) }
     it { is_expected.to validate_presence_of(:quantity) }
     it { is_expected.to validate_numericality_of(:quantity).is_greater_than(0) }
   end
 
   describe "#set_unit_price_and_total" do
-    let(:book) { create(:book) }
-    let(:order_item) do
-      OrderItem.new(book: book, order: create(:order), quantity: 5)
-    end
+    let(:line_item) { create(:line_item, quantity: 5) }
+    let(:order_item) { create(:order_item) }
 
     it "sets the unit price and total of an OrderItem" do
+      order_item.set_item_data(line_item)
       order_item.save
-      expect(order_item.unit_price.round(2)).to eq(book.price.round(2))
-      expect(order_item.total_price.round(2)).to eq((book.price * 5).round(2))
+      expect(order_item.unit_price).to eq(BigDecimal.new(line_item.unit_price, 12))
+      expect(order_item.total_price).to eq(BigDecimal.new((line_item.unit_price * 5), 12))
     end
   end
 end
