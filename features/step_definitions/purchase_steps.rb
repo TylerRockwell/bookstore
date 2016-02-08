@@ -20,10 +20,6 @@ When(/^I visit my cart$/) do
   visit "/carts/1"
 end
 
-Then(/^I am asked for my shipping address$/) do
-  expect(page).to have_content("Shipping Address")
-end
-
 When(/^I enter a valid shipping address$/) do
   within(:xpath, '//div[@class="shipping-address"]') do
     fill_in "Street number", with: 123
@@ -32,10 +28,6 @@ When(/^I enter a valid shipping address$/) do
     fill_in "State", with: "NY"
     fill_in "Zip", with: "10108"
   end
-end
-
-Then(/^I am asked for my billing address$/) do
-  expect(page).to have_content("Billing Address")
 end
 
 When(/^I enter a valid billing address$/) do
@@ -49,19 +41,18 @@ When(/^I enter a valid billing address$/) do
 end
 
 When(/^I enter a valid credit card$/) do
-  sleep(2) # wait for the js to create the popup in response to pressing the button
-  within_frame 'stripe_checkout_app' do
-    page.driver.browser.find_element(:id, 'email').send_keys('user@example.com')
+  fill_in "Card Number", with: "4242424242424242"
+  fill_in "CVC", with: 543
+  fill_in "Month", with: 05
+  fill_in "Year", with: (Time.now.year + 5)
+end
 
-    4.times { page.driver.browser.find_element(:id, 'card_number').send_keys('4242') }
+Then(/^I am asked for my shipping address$/) do
+  expect(page).to have_content("Shipping Address")
+end
 
-    page.driver.browser.find_element(:id, 'cc-exp').send_keys '5'
-    page.driver.browser.find_element(:id, 'cc-exp').send_keys '18'
-
-    page.driver.browser.find_element(:id, 'cc-csc').send_keys '123'
-    find('button[type="submit"]').click
-    sleep(2)
-  end
+Then(/^I am asked for my billing address$/) do
+  expect(page).to have_content("Billing Address")
 end
 
 Then(/^I am shown the order summary$/) do

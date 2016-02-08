@@ -6,16 +6,14 @@ Feature: Purchasing a Book
     When I visit the public book index
       And I click on a book
       And I click "Add to Cart"
-    Then the book is added to my cart
-    When I visit my cart
     Then I see the book in my cart
     When I click "Purchase"
       And I enter a valid shipping address
       And I enter a valid billing address
-      And I click "Next"
+      And I click "Submit Order"
     Then I am asked to review the order total
-    When I click "Pay with Card"
-      And I enter a valid credit card
+    When I enter a valid credit card
+      And I click "Confirm"
     Then I am shown the order summary
 
   Scenario: Quantity adjustment

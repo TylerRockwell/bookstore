@@ -12,6 +12,8 @@ class Order < ActiveRecord::Base
 
   delegate :name, to: :order_status, prefix: true
 
+  scope :pending, -> { where(order_status_id: 1) }
+
   def total
     order_items.inject(0) { |sum, item| sum + item.total_price }
   end
