@@ -1,25 +1,37 @@
 class ChargesController < ApplicationController
   def new
+    order = Order.find_by(id: session[:checkout_order_id])
+    if order
+      @amount = order.total
+    else
+      redirect_to books_path, alert: "You must buy something to check out"
+    end
   end
 
   def create
-    # Amount in cents
-    @amount = cart.stripe_total
+    order = Order.find_by(id: session[:checkout_order_id])
+    if order
+      # Amount in cents
+      @amount = order.stripe_total
 
-    customer = Stripe::Customer.create(
-      email:  params[:stripeEmail],
-      source: params[:stripeToken]
-    )
+      customer = Stripe::Customer.create(
+        email:  params[:stripeEmail],
+        source: params[:stripeToken]
+      )
 
-    Stripe::Charge.create(
-      customer:     customer.id,
-      amount:       @amount,
-      description:  'The Beautiful Rails Bookstore Purchase',
-      currency:     'usd'
-    )
+      Stripe::Charge.create(
+        customer:     customer.id,
+        amount:       @amount,
+        description:  'The Beautiful Rails Bookstore Purchase',
+        currency:     'usd'
+      )
 
-    redirect_to books_path, notice: "Your order has been placed. You should receive "\
-      "an email confirmation shortly."
+      session[:checkout_order_id] = nil
+      redirect_to order_path(order), notice: "Your order has been placed. You should receive "\
+        "an email confirmation shortly."
+    else
+      redirect_to root_path, alert: "How did you even get here?"
+    end
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
