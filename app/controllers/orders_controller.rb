@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
     @order.user = current_user
     if @order.save
       cart.empty
+      session[:stripeToken] = params[:stripeToken]
       redirect_to new_charge_path
     end
   end

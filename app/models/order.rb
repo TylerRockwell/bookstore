@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   has_one    :billing_address,  class_name: Address, inverse_of: :order
   has_one    :shipping_address, class_name: Address, inverse_of: :order
 
-  accepts_nested_attributes_for :billing_address
+  accepts_nested_attributes_for :billing_address, reject_if: :all_blank
   accepts_nested_attributes_for :shipping_address
 
   before_create :set_order_status

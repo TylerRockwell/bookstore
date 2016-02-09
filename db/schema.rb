@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209174809) do
+ActiveRecord::Schema.define(version: 20160209185158) do
 
   create_table "address_types", force: :cascade do |t|
     t.string   "name"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20160209174809) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "stripe_token"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

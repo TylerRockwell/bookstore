@@ -13,13 +13,22 @@ class ChargesController < ApplicationController
     if order
       # Amount in cents
       amount = order.stripe_total
-      customer = Stripe::Customer.create(
-        email:  current_user.email,
-        source: params[:stripeToken]
-      )
+
+      if session[:stripeToken]
+        customer = Stripe::Customer.create(
+          email:  current_user.email,
+          source: session[:stripeToken]
+        )
+        session[:stripeToken] = nil
+        customer_id = customer.id
+      else
+        customer_id = current_user.stripe_token
+      end
+
+      current_user.save_stripe_token(customer_id)
 
       Stripe::Charge.create(
-        customer:     customer.id,
+        customer:     customer_id,
         amount:       amount,
         description:  'The Beautiful Rails Bookstore Purchase',
         currency:     'usd'
@@ -27,7 +36,6 @@ class ChargesController < ApplicationController
 
       order.order_status = OrderStatus.find_by(name: "Payment Complete") # Temporary solution
       order.save
-      session[:checkout_order_id] = nil
       redirect_to order_path(order), notice: "Your order has been placed. You should receive "\
         "an email confirmation shortly."
     else
