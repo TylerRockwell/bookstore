@@ -87,3 +87,9 @@ end
 Then(/^I am asked to review the order total$/) do
   expect(page).to have_content@book.price
 end
+
+Then(/^I am emailed an order invoice containing the books details, quantity, and order total$/) do
+  expect(last_email.body.encoded).to include(@book.title)
+  expect(last_email.body.encoded).to include(@book.price.to_s)
+  expect(last_email.body.encoded).to include("Total for this order:")
+end

@@ -1,0 +1,17 @@
+Your order from Beautiful Rails Bookstore
+
+Items ordered:
+  Title
+  Unit Price
+  Quantity
+  Total Price
+  <% @order_items.each do |item| %>
+      <%= "| #{item.book_title} | " %>
+      <%= "| #{item.unit_price} | " %>
+      <%= "| #{item.quantity} | " %>
+      <%= "| #{item.total_price} | " %>
+  <% end %>
+
+Total for this order: <%= @order.total %>
+
+Shipped to: <%= @order.shipping_address %>
