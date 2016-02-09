@@ -8,6 +8,8 @@ jQuery(function($) {
     var $form = $(this);
     $form.find('button').prop('disabled', true);
     if ($(".credit-card")[0].style.display != "none"){
+      stripeKey = $("#stripe-publishable-key").val();
+      Stripe.setPublishableKey(stripeKey);
       Stripe.card.createToken($form, stripeResponseHandler);
       return false;
     }

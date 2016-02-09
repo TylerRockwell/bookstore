@@ -9,6 +9,7 @@ class ChargesController < ApplicationController
   end
 
   def create
+    # I know this controller action is fat. It will be refactored in a future PR
     order = current_user.orders.pending.last
     if order
       # Amount in cents
@@ -34,8 +35,7 @@ class ChargesController < ApplicationController
         currency:     'usd'
       )
 
-      order.order_status = OrderStatus.find_by(name: "Payment Complete") # Temporary solution
-      order.save
+      order.change_order_status_to("Payment Complete")
       redirect_to order_path(order), notice: "Your order has been placed. You should receive "\
         "an email confirmation shortly."
     else
