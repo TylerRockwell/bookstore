@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :books
     resources :dashboard, only: :index
+    resources :orders, only: :index
   end
   root 'books#index'
 end

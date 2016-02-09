@@ -35,6 +35,10 @@ class Order < ActiveRecord::Base
     (total * 100).to_i
   end
 
+  def number_of_order_items
+    order_items.count
+  end
+
   private
 
   def set_order_status
