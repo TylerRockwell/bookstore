@@ -9,9 +9,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :billing_address
   accepts_nested_attributes_for :shipping_address
 
-  before_create :set_order_status
-
-  delegate :name, to: :order_status, prefix: true
+  delegate :display, to: :order_status, prefix: true
 
   scope :pending, -> { where(order_status_id: OrderStatus.find_by(name: "Pending")) }
 
@@ -34,10 +32,7 @@ class Order < ActiveRecord::Base
     (total * 100).to_i
   end
 
-  private
-
-  def set_order_status
-    # Temporary solution
-    self.order_status = OrderStatus.find_by(name: "Pending")
+  def mark_as(status_name)
+    self.order_status = OrderStatus.find_by(name: status_name)
   end
 end

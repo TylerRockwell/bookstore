@@ -16,15 +16,14 @@ Admin.create!(
   password: "password"
 )
 
-order_status_attrs = [
-  { name: "Pending" },
-  { name: "Payment Complete" },
-  { name: "Shipped" },
-  { name: "Cancelled" }
+status_attrs = [
+  { name: "pending", display: "Pending" },
+  { name: "paid", display: "Payment Complete" },
+  { name: "shipped", display: "Shipped" },
+  { name: "cancelled", display: "Cancelled" }
 ]
-
 OrderStatus.delete_all
-OrderStatus.create!(order_status_attrs)
+OrderStatus.create!(status_attrs)
 
 User.delete_all
 User.create!(

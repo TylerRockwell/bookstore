@@ -25,9 +25,8 @@ class ChargesController < ApplicationController
         currency:     'usd'
       )
 
-      order.order_status = OrderStatus.find_by(name: "Payment Complete") # Temporary solution
+      order.mark_as("paid")
       order.save
-      session[:checkout_order_id] = nil
       redirect_to order_path(order), notice: "Your order has been placed. You should receive "\
         "an email confirmation shortly."
     else
