@@ -1,5 +1,5 @@
 class LineItemsController < ApplicationController
-  before_action :set_order, only: [:update, :destroy]
+  before_action :set_line_item, only: [:update, :destroy]
   def create
     @line_item = cart.line_items.new(line_item_params)
     if cart.save
@@ -29,7 +29,7 @@ class LineItemsController < ApplicationController
 
   private
 
-  def set_order
+  def set_line_item
     @line_item = cart.line_items.find_by(id: params[:id])
   end
 

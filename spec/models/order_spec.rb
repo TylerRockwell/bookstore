@@ -8,8 +8,8 @@ RSpec.describe Order, type: :model do
 
   describe "#total" do
     let!(:order) { create(:order) }
-    let!(:item_1) { create(:order_item, order: order) }
-    let!(:item_2) { create(:order_item, order: order) }
+    let!(:item_1) { create(:order_item, :complete, order: order) }
+    let!(:item_2) { create(:order_item, :complete, order: order) }
     it "calculates the total price for the order" do
       order.order_items << item_1
       order.order_items << item_2

@@ -6,11 +6,5 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_one  :cart
 
-  after_create :build_cart
-
-  private
-
-  def build_cart
-    cart || Cart.create(user: self)
-  end
+  after_create :create_cart
 end

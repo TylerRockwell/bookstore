@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def cart
+  def current_user_cart
     current_user.cart.decorate
   end
 end
