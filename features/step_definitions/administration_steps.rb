@@ -31,6 +31,10 @@ Given(/^there is a book named "([^"]*)" valued at "([^"]*)"$/) do |book_title, p
   FactoryGirl.create(:book, title: book_title, price: price)
 end
 
+Given(/^There are orders$/) do
+  @orders = FactoryGirl.create_list(:order, 20)
+end
+
 When(/^I click "([^"]*)" for the book "([^"]*)"$/) do |link_text, book_title|
   find("div.row", text: book_title).click_link(link_text)
 end
@@ -91,6 +95,10 @@ When(/^I change the book price to "([^"]*)"$/) do |book_price|
   fill_in "Price", with: book_price
 end
 
+When(/^I visit the admin order index$/) do
+  click_link "View a list of orders"
+end
+
 Then(/^I see the admin panel$/) do
   expect(page).to have_content("Admin Dashboard")
 end
@@ -117,4 +125,13 @@ end
 
 Then(/^I don't see "([^"]*)"$/) do |book_name|
   expect(page).to_not have_content(book_name)
+end
+
+Then(/^I see a list of orders placed on the site$/) do
+  expect(page).to have_content("Order Id")
+  expect(page).to have_content("Placed By")
+  expect(page).to have_content(@orders.first.id)
+  expect(page).to have_content(@orders.first.user_email)
+  expect(page).to have_content(@orders.first.number_of_order_items)
+  expect(page).to have_content(@orders.first.total)
 end
