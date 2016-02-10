@@ -1,0 +1,17 @@
+<div class="row order-listing-header">
+  <div class="col-md-1">Order Id</div>
+  <div class="col-md-3">Placed By</div>
+  <div class="col-md-2">Number of Items</div>
+  <div class="col-md-2">Total Price</div>
+</div>
+
+<div class="order-index-list">
+  <% @orders.each do |order| %>
+    <div class="row">
+      <div class="col-md-1 order-index-id"><%= link_to order.id, order_path(order) %></div>
+      <div class="col-md-3 order-index-email"><%= order.user_email %></div>
+      <div class="col-md-2 order-index-number-ordered"><%= order.number_of_order_items %></div>
+      <div class="col-md-2 order-index-total-price"><%= order.total %></div>
+    </div>
+  <% end %>
+</div>

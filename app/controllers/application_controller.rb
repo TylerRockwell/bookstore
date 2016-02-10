@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.class == Admin
-      admin_dashboard_index_path
+      admin_dashboard_path
     else
       books_path
     end

@@ -16,6 +16,7 @@ Feature: Purchasing a Book
     When I click "Confirm"
     Then I am shown the order summary
       And my credit card is saved for future purchases
+      And I am emailed an order invoice containing the books details, quantity, and order total
 
   Scenario: Quantity adjustment
     Given I am logged into the site
@@ -46,3 +47,4 @@ Feature: Purchasing a Book
     When I click "Confirm"
     Then I am shown the order summary
       And my credit card is saved for future purchases
+      And I am emailed an order invoice containing the books details, quantity, and order total

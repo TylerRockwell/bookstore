@@ -10,6 +10,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :shipping_address
 
   delegate :name, to: :order_status, prefix: true
+  delegate :email, to: :user, prefix: true
 
   scope :pending, -> { where(order_status_id: OrderStatus.find_by(name: "Pending")) }
 
@@ -35,5 +36,9 @@ class Order < ActiveRecord::Base
   def change_order_status_to(status)
     self.order_status = OrderStatus.find_by(name: status)
     save
+  end
+  
+  def number_of_order_items
+    order_items.count
   end
 end
