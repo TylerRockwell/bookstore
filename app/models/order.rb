@@ -37,7 +37,7 @@ class Order < ActiveRecord::Base
     self.order_status = OrderStatus.find_by(name: status)
     save
   end
-  
+
   def number_of_order_items
     order_items.count
   end

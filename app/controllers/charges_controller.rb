@@ -38,7 +38,7 @@ class ChargesController < ApplicationController
       order.change_order_status_to("Payment Complete")
       order.save
       OrderMailer.invoice(order).deliver_later
-      
+
       redirect_to order_path(order), notice: "Your order has been placed. You should receive "\
         "an email confirmation shortly."
     else
