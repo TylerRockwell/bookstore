@@ -27,7 +27,7 @@ class ChargesController < ApplicationController
 
       order.order_status = OrderStatus.find_by(name: "Payment Complete") # Temporary solution
       order.save
-      session[:checkout_order_id] = nil
+      OrderMailer.invoice(order).deliver_later
       redirect_to order_path(order), notice: "Your order has been placed. You should receive "\
         "an email confirmation shortly."
     else

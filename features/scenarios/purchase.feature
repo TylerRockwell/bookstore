@@ -15,6 +15,7 @@ Feature: Purchasing a Book
     When I enter a valid credit card
       And I click "Confirm"
     Then I am shown the order summary
+      And I am emailed an order invoice containing the books details, quantity, and order total
 
   Scenario: Quantity adjustment
     Given I am logged into the site
