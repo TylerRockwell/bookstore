@@ -29,9 +29,9 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe ".sortable_fields" do
+  describe ".searchable_fields" do
     it "returns a list of all fields that can be used for sorting" do
-      expect(Book.sortable_fields).to eq(
+      expect(Book.searchable_fields).to eq(
         [:title, :published_date, :author, :price, :category]
       )
     end

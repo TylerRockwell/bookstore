@@ -6,6 +6,19 @@ When(/^I visit the root url$/) do
   visit '/'
 end
 
+Given(/^some books have been ordered$/) do
+  FactoryGirl.create_list(:order_item, 5, book: @books.first)
+end
+
+When(/^I sort by "([^"]*)"$/) do |field|
+  select(field, from: "Order books by:")
+  click_on "Submit"
+end
+
+Then(/^the books are re\-sorted based on the amount of times they are purchased$/) do
+  expect(first('//div.store-book-list div.row')).to have_content(@books.first.title)
+end
+
 Then(/^I see a list of books in the database$/) do
   expect(page).to have_content(Book.by_published.first.title)
 end

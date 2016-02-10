@@ -6,7 +6,7 @@ class AdminApi::BooksController < ApplicationController
     @books = Book.search(params[:search])
                  .order_by(params[:sort_field], params[:sort_order])
                  .page(params[:page])
-    @sortable_fields = Book.sortable_fields
+    @sortable_fields = Book.sort_options
   end
 
   def new
