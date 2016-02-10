@@ -2,6 +2,10 @@ Given(/^there are some books in the database$/) do
   @book = FactoryGirl.create(:book)
 end
 
+Given(/^I have a credit card saved on the site$/) do
+  @user.update_attribute(:stripe_customer_id, "cus_7sT7NcC8IVAlU7")
+end
+
 When(/^I click on a book$/) do
   expect(page).to have_content(@book.title)
   find("div.row", text: @book.title).click_link(@book.title)
@@ -17,7 +21,7 @@ When(/^I enter (\d+) for the quantity$/) do |number|
 end
 
 When(/^I visit my cart$/) do
-  visit "/carts/1"
+  visit "/carts/#{@user.cart.id}"
 end
 
 When(/^I enter a valid shipping address$/) do
@@ -47,15 +51,12 @@ When(/^I enter a valid credit card$/) do
   fill_in "Year", with: (Time.now.year + 5)
 end
 
-Then(/^I am asked for my shipping address$/) do
-  expect(page).to have_content("Shipping Address")
-end
-
-Then(/^I am asked for my billing address$/) do
-  expect(page).to have_content("Billing Address")
+When(/^I choose to use my saved credit card$/) do
+  check "Use saved card"
 end
 
 Then(/^I am shown the order summary$/) do
+  sleep(2)
   expect(page).to have_content("Your order from Beautiful Rails Bookstore")
 end
 
@@ -86,6 +87,10 @@ end
 
 Then(/^I am asked to review the order total$/) do
   expect(page).to have_content@book.price
+end
+
+Then(/^my credit card is saved for future purchases$/) do
+  expect(@user.reload.stripe_customer_id).to_not eq(nil)
 end
 
 Then(/^I am emailed an order invoice containing the books details, quantity, and order total$/) do

@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.build_shipping_address
     @order.build_billing_address
+    @stripe_publishable_key = Rails.configuration.stripe[:publishable_key]
   end
 
   def create
@@ -10,7 +11,9 @@ class OrdersController < ApplicationController
     @order.add_items_from(cart)
     @order.user = current_user
     if @order.save
+      @order.change_order_status_to("Pending")
       cart.empty
+      session[:stripeToken] = params[:stripeToken]
       redirect_to new_charge_path
     end
   end
