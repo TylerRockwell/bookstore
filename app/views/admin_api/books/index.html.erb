@@ -1,7 +1,7 @@
 <%= render 'filters' %>
 
 <p>
-  <%= button_to 'Add a Book', new_admin_book_path,
+  <%= button_to 'Add a Book', new_admin_api_book_path,
     method: :get, class: "btn btn-primary" %>
 </p>
 
@@ -22,10 +22,10 @@
       <div class="col-md-1 store-book-price">$<%= book.price %></div>
       <div class="col-md-2 store-book-category"><%= book.category %></div>
       <div class="col-md-1 store-book-edit">
-        <%= link_to 'Edit', edit_admin_book_path(book) %>
+        <%= link_to 'Edit', edit_admin_api_book_path(book) %>
       </div>
       <div class="col-md-1 store-book-delete">
-        <%= link_to 'Delete', admin_book_path(book), method: :delete,
+        <%= link_to 'Delete', admin_api_book_path(book), method: :delete,
           data: { confirm: 'Are you sure?' } %>
       </div>
 

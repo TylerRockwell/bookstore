@@ -7,10 +7,11 @@ Rails.application.routes.draw do
   resources :order_items, only: [:create, :update, :destroy]
   resources :carts, only: :show
   resources :charges, only: [:new, :create]
-  namespace :admin do
+  namespace :admin_api do
     get 'dashboard' => 'dashboard#index'
     resources :books
     resources :orders, only: :index
+    resources :admins, only: [:new, :create]
   end
   root 'books#index'
 end
