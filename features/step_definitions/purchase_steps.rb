@@ -3,7 +3,7 @@ Given(/^there are some books in the database$/) do
 end
 
 Given(/^I have a credit card saved on the site$/) do
-  @user.save_stripe_token("cus_7sT7NcC8IVAlU7")
+  @user.update_attribute(:stripe_customer_id, "cus_7sT7NcC8IVAlU7")
 end
 
 When(/^I click on a book$/) do
@@ -90,7 +90,7 @@ Then(/^I am asked to review the order total$/) do
 end
 
 Then(/^my credit card is saved for future purchases$/) do
-  expect(@user.reload.stripe_token).to_not eq(nil)
+  expect(@user.reload.stripe_customer_id).to_not eq(nil)
 end
 
 Then(/^I am emailed an order invoice containing the books details, quantity, and order total$/) do

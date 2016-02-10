@@ -23,10 +23,10 @@ class ChargesController < ApplicationController
         session[:stripeToken] = nil
         customer_id = customer.id
       else
-        customer_id = current_user.stripe_token
+        customer_id = current_user.stripe_customer_id
       end
 
-      current_user.update_attribute(:stripe_token, customer_id)
+      current_user.update_attribute(:stripe_customer_id, customer_id)
 
       Stripe::Charge.create(
         customer:     customer_id,

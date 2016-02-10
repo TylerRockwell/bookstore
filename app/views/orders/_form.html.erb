@@ -10,7 +10,7 @@
     <% end %>
   </div>
 
-  <% if current_user.stripe_token %>
+  <% if current_user.stripe_customer_id %>
     <p>
       <%= label_tag :use_saved_card %>
       <%= check_box_tag :use_saved_card %>
