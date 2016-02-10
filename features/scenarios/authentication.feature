@@ -6,7 +6,7 @@ Feature: User Authentication
     Then I am presented with a login page
     When I enter my correct email
     And I enter my password
-    And I click submit
+    And I click "Log in"
     Then I am redirected to the book index page
 
   Scenario: User enters invalid authentication information
@@ -15,5 +15,5 @@ Feature: User Authentication
     When I visit the site root path
     Then I am presented with a login page
     When I enter the wrong password
-    And I click submit
+    And I click "Log in"
     Then I am notified that my password is incorrect

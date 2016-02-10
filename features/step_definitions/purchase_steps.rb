@@ -56,6 +56,7 @@ Then(/^I am asked for my billing address$/) do
 end
 
 Then(/^I am shown the order summary$/) do
+  sleep(2)
   expect(page).to have_content("Your order from Beautiful Rails Bookstore")
 end
 
