@@ -91,5 +91,5 @@ end
 Then(/^I am emailed an order invoice containing the books details, quantity, and order total$/) do
   expect(last_email.body.encoded).to include(@book.title)
   expect(last_email.body.encoded).to include(@book.price.to_s)
-  expect(last_email.body.encoded).to include("Total for this order:")
+  expect(last_email.body.encoded).to include(@user.orders.last.total.to_s)
 end
