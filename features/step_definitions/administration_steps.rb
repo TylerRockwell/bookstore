@@ -15,7 +15,12 @@ Given(/^I am logged into the admin panel$/) do
 end
 
 Given(/^I am logged into the site$/) do
-  expect(page).to have_content("Signed in successfully")
+  @user = FactoryGirl.create(:user, email: "user@example.com", password: "password")
+  @user.confirm
+  visit "/users/sign_in"
+  fill_in "Email", with: "user@example.com"
+  fill_in "Password", with: "password"
+  click_button "Log in"
 end
 
 Given(/^there is a book named "([^"]*)"$/) do |book_title|
@@ -24,6 +29,10 @@ end
 
 Given(/^there is a book named "([^"]*)" valued at "([^"]*)"$/) do |book_title, price|
   FactoryGirl.create(:book, title: book_title, price: price)
+end
+
+Given(/^There are orders$/) do
+  @orders = FactoryGirl.create_list(:order, 20)
 end
 
 When(/^I click "([^"]*)" for the book "([^"]*)"$/) do |link_text, book_title|
@@ -86,6 +95,10 @@ When(/^I change the book price to "([^"]*)"$/) do |book_price|
   fill_in "Price", with: book_price
 end
 
+When(/^I visit the admin order index$/) do
+  click_link "View a list of orders"
+end
+
 Then(/^I see the admin panel$/) do
   expect(page).to have_content("Admin Dashboard")
 end
@@ -112,4 +125,13 @@ end
 
 Then(/^I don't see "([^"]*)"$/) do |book_name|
   expect(page).to_not have_content(book_name)
+end
+
+Then(/^I see a list of orders placed on the site$/) do
+  expect(page).to have_content("Order Id")
+  expect(page).to have_content("Placed By")
+  expect(page).to have_content(@orders.first.id)
+  expect(page).to have_content(@orders.first.user_email)
+  expect(page).to have_content(@orders.first.number_of_order_items)
+  expect(page).to have_content(@orders.first.total)
 end

@@ -25,7 +25,7 @@ When(/^I enter a password with correct confirmation$/) do
 end
 
 When(/^I click the "([^"]*)" button$/) do |button_name|
-  click_button button_name
+  click_on button_name
 end
 
 When(/^I enter a password with incorrect confirmation$/) do

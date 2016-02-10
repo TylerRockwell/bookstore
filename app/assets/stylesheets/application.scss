@@ -1,9 +1,31 @@
- @import "bootstrap-sprockets";
- @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "carts";
+@import "orders";
 
 .container {
   font-size: 18px;
   color: #333;
+}
+
+.header {
+  margin-bottom: 2em;
+}
+
+fieldset {
+  border: 2px #111 solid;
+}
+
+input {
+  max-width: 300px;
+}
+
+.cart-display {
+  text-align: center;
+}
+
+.logout-link {
+  float: right;
 }
 
 .store-listing-header {

@@ -10,6 +10,7 @@ class BooksController < ApplicationController
   end
 
   def show
+    @line_item = LineItem.new
   end
 
   private

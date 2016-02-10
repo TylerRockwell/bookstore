@@ -11,7 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201173903) do
+ActiveRecord::Schema.define(version: 20160209174809) do
+
+  create_table "address_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "street_number"
+    t.string   "street_name"
+    t.string   "apartment"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.integer  "address_type_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "order_id"
+  end
+
+  add_index "addresses", ["address_type_id"], name: "index_addresses_on_address_type_id"
+  add_index "addresses", ["order_id"], name: "index_addresses_on_order_id"
+  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -41,6 +65,54 @@ ActiveRecord::Schema.define(version: 20160201173903) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
+
+  create_table "carts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "carts", ["user_id"], name: "index_carts_on_user_id"
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer  "cart_id"
+    t.integer  "book_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "line_items", ["book_id"], name: "index_line_items_on_book_id"
+  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id"
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "order_id"
+    t.decimal  "unit_price",  precision: 12, scale: 3
+    t.integer  "quantity"
+    t.decimal  "total_price", precision: 12, scale: 3
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "book_title"
+  end
+
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "order_status_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "user_id"
+    t.integer  "shipping_address_id"
+    t.integer  "billing_address_id"
+  end
+
+  add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

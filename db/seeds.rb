@@ -15,6 +15,17 @@ Admin.create!(
   email:    "admin@example.com",
   password: "password"
 )
+
+order_status_attrs = [
+  { name: "Pending" },
+  { name: "Payment Complete" },
+  { name: "Shipped" },
+  { name: "Cancelled" }
+]
+
+OrderStatus.delete_all
+OrderStatus.create!(order_status_attrs)
+
 User.delete_all
 User.create!(
   email:    "user@example.com",

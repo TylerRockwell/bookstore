@@ -1,0 +1,26 @@
+<div class="row cart-listing-header">
+  <div class="col-md-3">Item</div>
+  <div class="col-md-2">Item Total</div>
+  <div class="col-md-2">Unit Price</div>
+  <div class="col-md-3">Quantity</div>
+</div>
+
+<div class="cart-item-list">
+  <% @line_items.each do |item| %>
+    <div class="row cart-item-row">
+      <div class="col-md-3 cart-item-title"><%= link_to item.title, book_path(item.book) %></div>
+      <div class="col-md-2 cart-item-total_price">$<%= item.total_price %></div>
+      <div class="col-md-2 cart-item-unit_price">$<%= item.unit_price %></div>
+      <div class="col-md-3 cart-item-quantity"><%= render 'quantity', item: item %></div>
+      <div class="col-md-2 cart-item-remove">
+        <%= link_to "Remove", line_item_path(item), method: :delete,
+          data: { confirm: "Are you sure" }, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+  <div class="row cart-total-row">
+    <div class="col-md-2"> Total for this order: </div>
+    <div class="col-md-2 cart-total"><%= @cart.formatted_total %></div>
+    <div><%= @cart.purchase_button %></div>
+  </div>
+</div>

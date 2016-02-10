@@ -1,0 +1,25 @@
+<h1> Your order from Beautiful Rails Bookstore </h1>
+
+<h3>Items ordered:</h3>
+<div class="row">
+  <div class="col-md-2"> Title </div>
+  <div class="col-md-2"> Unit Price </div>
+  <div class="col-md-2"> Quantity </div>
+  <div class="col-md-2"> Total Price </div>
+</div>
+<% @order_items.each do |item| %>
+  <div class="row">
+    <div class="col-md-2"> <%= item.book_title %></div>
+    <div class="col-md-2"> <%= item.unit_price %></div>
+    <div class="col-md-2"> <%= item.quantity %></div>
+    <div class="col-md-2"> <%= item.total_price %></div>
+  </div>
+<% end %>
+
+<div class="row order-total-row">
+  <div class="col-md-2"> Total for this order: </div>
+  <div class="col-md-2 order-total"><%= @order.total %></div>
+</div>
+
+<h3>Shipped to:</h3>
+<%= @order.shipping_address %>
