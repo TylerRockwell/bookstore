@@ -1,4 +1,4 @@
-class Admin::OrdersController < ApplicationController
+class AdminApi::OrdersController < ApplicationController
   before_filter :authenticate_admin!
 
   def index
