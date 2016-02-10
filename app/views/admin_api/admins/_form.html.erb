@@ -1,0 +1,14 @@
+<div class="col-md-6 col-md-offset-1" >
+
+  <p> Enter the admin's details. * Denotes a required field </p>
+
+  <%= simple_form_for([:admin_api, @admin], html: { class: 'form-horizontal' }) do |f| %>
+
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+
+    <%= f.button :submit, "Submit" %>
+
+  <% end %>
+</div>

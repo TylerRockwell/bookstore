@@ -43,8 +43,8 @@ When(/^I visit the admin books url$/) do
   visit "/admin_api/books"
 end
 
-When(/^I click "([^"]*)"$/) do |button_text|
-  click_button button_text
+When(/^I click "([^"]*)"$/) do |text|
+  click_on text
 end
 
 When(/^I enter the title "([^"]*)"$/) do |book_title|
@@ -79,10 +79,6 @@ When(/^I enter my admin password$/) do
   fill_in "Password", with: "password"
 end
 
-When(/^I click submit$/) do
-  click_button "Log in"
-end
-
 When(/^I confirm my decision to delete the book$/) do
   page.driver.browser.switch_to.alert.accept
 end
@@ -95,6 +91,10 @@ When(/^I change the book price to "([^"]*)"$/) do |book_price|
   fill_in "Price", with: book_price
 end
 
+Given(/^I enter the email "([^"]*)"$/) do |email|
+  fill_in "Email", with: email
+end
+
 When(/^I visit the admin order index$/) do
   click_link "View a list of orders"
 end
@@ -103,8 +103,8 @@ Then(/^I see the admin panel$/) do
   expect(page).to have_content("Admin Dashboard")
 end
 
-Then(/^I see a flash notification that tell me that my email does not exist in the system$/) do
-  expect(page).to have_content("Invalid email or password")
+Then(/^I see a flash notification that says "([^"]*)"$/) do |message|
+  expect(page).to have_content(message)
 end
 
 Then(/^I see the book "([^"]*)"$/) do |book_title|
