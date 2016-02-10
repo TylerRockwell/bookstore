@@ -59,3 +59,9 @@ Feature: Bookstore Administration Panel
     Then I see the book "Book That Has Been Edited"
     When I visit the public book index
     Then I see the book "Book That Has Been Edited"
+
+  Scenario: Viewing a list of orders
+    Given I am logged into the admin panel
+      And There are orders
+    When I visit the admin order index
+    Then I see a list of orders placed on the site

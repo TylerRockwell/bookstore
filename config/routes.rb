@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   resources :carts, only: :show
   resources :charges, only: [:new, :create]
   namespace :admin do
+    get 'dashboard' => 'dashboard#index'
     resources :books
-    resources :dashboard, only: :index
+    resources :orders, only: :index
   end
   root 'books#index'
 end
