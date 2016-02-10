@@ -9,12 +9,13 @@
       <%= sa.input :zip %>
     <% end %>
   </div>
-  
-  <p>
-    <%= label_tag :use_saved_card %>
-    <%= check_box_tag :use_saved_card %>
-  </p>
 
+  <% if current_user.stripe_token %>
+    <p>
+      <%= label_tag :use_saved_card %>
+      <%= check_box_tag :use_saved_card %>
+    </p>
+  <% end %>
   <div class="billing-address">
     <h2> Billing Address </h2>
     <%= f.fields_for :billing_address do |ba| %>
