@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::BooksController, type: :controller do
+RSpec.describe AdminApi::BooksController, type: :controller do
   let!(:sign_in_admin) { sign_in create(:admin) }
   let(:book) { create(:book) }
   let(:book_list) { create_list(:book, 25) }

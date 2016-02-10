@@ -40,7 +40,7 @@ When(/^I click "([^"]*)" for the book "([^"]*)"$/) do |link_text, book_title|
 end
 
 When(/^I visit the admin books url$/) do
-  visit "/admin/books"
+  visit "/admin_api/books"
 end
 
 When(/^I click "([^"]*)"$/) do |button_text|
