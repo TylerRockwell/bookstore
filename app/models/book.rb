@@ -29,6 +29,6 @@ class Book < ActiveRecord::Base
   end
 
   def times_sold
-    order_items.map {|order_item| order_item.quantity }.sum
+    order_items.sum(:quantity)
   end
 end

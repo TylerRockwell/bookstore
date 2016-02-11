@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     if @order.save
       @order.change_order_status_to("Pending")
       cart.empty
-      session[:stripeToken] = params[:stripeToken]
+      session[:stripe_token] = params[:stripeToken]
       redirect_to new_charge_path
     end
   end

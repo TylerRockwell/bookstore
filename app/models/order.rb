@@ -41,14 +41,4 @@ class Order < ActiveRecord::Base
   def number_of_order_items
     order_items.count
   end
-
-  def finalize
-    change_order_status_to("Payment Complete")
-    save
-    send_invoice
-  end
-
-  def send_invoice
-    OrderMailer.invoice(self).deliver_later
-  end
 end
