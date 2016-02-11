@@ -1,5 +1,4 @@
 class CheckoutService
-
   def initialize(current_user, order, stripe_token)
     @current_user = current_user
     @order = order
