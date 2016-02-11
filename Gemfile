@@ -54,6 +54,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'shoulda-matchers', '~> 3.0'
+  gem 'stripe-ruby-mock', require: 'stripe_mock'
 end
 
 group :development do

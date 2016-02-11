@@ -1,6 +1,6 @@
 class ChargesController < ApplicationController
   def new
-    order = current_user.orders.pending.last
+    order = last_pending_order
     if order
       @amount = order.total
     else
@@ -9,44 +9,27 @@ class ChargesController < ApplicationController
   end
 
   def create
-    # I know this controller action is fat. It will be refactored in a future PR
-    order = current_user.orders.pending.last
+    order = last_pending_order
     if order
-      # Amount in cents
-      amount = order.stripe_total
-
-      if session[:stripeToken]
-        customer = Stripe::Customer.create(
-          email:  current_user.email,
-          source: session[:stripeToken]
-        )
-        session[:stripeToken] = nil
-        customer_id = customer.id
+      if go_to_checkout.place_order
+        redirect_to order_path(order), notice: "Your order has been placed. You should receive "\
+          "an email confirmation shortly."
       else
-        customer_id = current_user.stripe_customer_id
+        redirect_to new_charge_path, alert: "There was a problem with the payment. "\
+          "Your card has not been charged."
       end
-
-      current_user.update_attribute(:stripe_customer_id, customer_id)
-
-      Stripe::Charge.create(
-        customer:     customer_id,
-        amount:       amount,
-        description:  'The Beautiful Rails Bookstore Purchase',
-        currency:     'usd'
-      )
-
-      order.change_order_status_to("Payment Complete")
-      order.save
-      OrderMailer.invoice(order).deliver_later
-
-      redirect_to order_path(order), notice: "Your order has been placed. You should receive "\
-        "an email confirmation shortly."
     else
       redirect_to root_path, alert: "How did you even get here?"
     end
+  end
 
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_charge_path
+  private
+
+  def last_pending_order
+    current_user.orders.pending.last
+  end
+
+  def go_to_checkout
+    CheckoutService.new(current_user, last_pending_order, session[:stripe_token])
   end
 end

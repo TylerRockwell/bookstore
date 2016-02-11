@@ -4,6 +4,7 @@
 </script>
 
 <h2> Credit Card </h2>
+<p id="payment-errors"></p>
 <%= label_tag :card_number, "Card Number" %>
 <p><%= text_field_tag :card_number, nil, size: 20, "data-stripe" => "number" %></p>
 
