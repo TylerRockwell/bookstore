@@ -6,10 +6,8 @@ class Order < ActiveRecord::Base
   has_one    :billing_address,  class_name: Address, inverse_of: :order
   has_one    :shipping_address, class_name: Address, inverse_of: :order
 
-  accepts_nested_attributes_for :billing_address
+  accepts_nested_attributes_for :billing_address, reject_if: :all_blank
   accepts_nested_attributes_for :shipping_address
-
-  before_create :set_order_status
 
   delegate :name, to: :order_status, prefix: true
   delegate :email, to: :user, prefix: true
@@ -35,14 +33,12 @@ class Order < ActiveRecord::Base
     (total * 100).to_i
   end
 
-  def number_of_order_items
-    order_items.count
+  def change_order_status_to(status)
+    self.order_status = OrderStatus.find_by(name: status)
+    save
   end
 
-  private
-
-  def set_order_status
-    # Temporary solution
-    self.order_status = OrderStatus.find_by(name: "Pending")
+  def number_of_order_items
+    order_items.count
   end
 end

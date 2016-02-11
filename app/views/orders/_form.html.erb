@@ -1,5 +1,4 @@
-
-<%= simple_form_for(@order, html: { class: 'form-horizontal' }) do |f| %>
+<%= simple_form_for(@order, html: { id: 'payment-form' }) do |f| %>
   <div class="shipping-address">
     <h2> Shipping Address </h2>
     <%= f.fields_for :shipping_address do |sa| %>
@@ -11,6 +10,12 @@
     <% end %>
   </div>
 
+  <% if current_user.stripe_customer_id %>
+    <p>
+      <%= label_tag :use_saved_card %>
+      <%= check_box_tag :use_saved_card %>
+    </p>
+  <% end %>
   <div class="billing-address">
     <h2> Billing Address </h2>
     <%= f.fields_for :billing_address do |ba| %>
@@ -21,5 +26,9 @@
       <%= ba.input :zip %>
     <% end %>
   </div>
+
+<div class="credit-card">
+  <%= render "credit_card_form" %>
+</div>
   <%= f.button :submit, "Submit Order" %>
 <% end %>

@@ -1,43 +1,6 @@
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script type="text/javascript">
-  Stripe.setPublishableKey("<%=Rails.configuration.stripe[:publishable_key]%>");
-</script>
+<%= form_tag charges_path do %>
+  <h3>Your order total is <%= @amount %></h3>
 
-<%= form_tag charges_path, id: "payment-form" do %>
-  <article>
-    <label class="amount">
-      <span>Amount Due: $<%= @amount %></span>
-    </label>
-  </article>
-
-
-  <div class="row stripe-field">
-    <div class="col-md-2"><%= label_tag :card_number, "Card Number" %></div>
-    <div class="col-md-2">
-      <%= text_field_tag :card_number, nil, size: 20, "data-stripe" => "number" %>
-    </div>
-  </div>
-
-  <div class="row stripe-field">
-    <div class="col-md-2"><%= label_tag :CVC, "CVC" %></div>
-    <div class="col-md-2">
-      <%= text_field_tag :CVC, nil, size: 4, "data-stripe" => "cvc" %>
-    </div>
-  </div>
-
-  <div class="row stripe-field">
-    <div class="col-md-2">Expiration Date (MM/YYYY)</div>
-    <div class="col-md-4">
-      <%= label_tag :month %>
-      <%= text_field_tag :month, nil, size: 2, "data-stripe" => "exp-month" %>
-      <%= label_tag :year %>
-      <%= text_field_tag :year, nil, size: 4, "data-stripe" => "exp-year" %>
-    </div>
-  </div>
-
-  <div class="row stripe-field">
-    <div class="col-md-2">
-      <%= submit_tag "Confirm" %>
-    </div>
-  </div>
+  <p>Please click confirm to place your order</p>
+  <%= submit_tag "Confirm" %>
 <% end %>
