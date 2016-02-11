@@ -8,9 +8,14 @@ class CheckoutService
   def place_order
     customer_id = retrieve_stripe_customer_id
     @current_user.update_attribute(:stripe_customer_id, customer_id)
-    charge_customer(customer_id)
-    finalize
-    send_invoice
+    if charge_customer(customer_id)
+      @current_user.cart.empty
+      finalize
+      send_invoice
+      return true
+    else
+      return false
+    end
   end
 
   private
@@ -36,8 +41,10 @@ class CheckoutService
     )
 
   rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_charge_path
+    return false
+
+  rescue Stripe::InvalidRequestError => e
+    return false
   end
 
   def finalize
