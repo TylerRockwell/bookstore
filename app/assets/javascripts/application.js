@@ -3,18 +3,14 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-jQuery(function($) {
-  $('#payment-form').submit(function(event) {
-    var $form = $(this);
-    $form.find('button').prop('disabled', true);
-    if ($(".credit-card")[0].style.display != "none"){
-      stripeKey = $("#stripe-publishable-key").val();
-      Stripe.setPublishableKey(stripeKey);
-      Stripe.card.createToken($form, stripeResponseHandler);
-      return false;
-    }
-  });
-});
+function onPaymentFormSubmit(event) {
+  var $form = $(this);
+  $form.find('button').prop('disabled', true);
+  if ($('.credit-card')[0].style.display != 'none'){
+    Stripe.card.createToken($form, stripeResponseHandler);
+    return false;
+  }
+};
 
 function stripeResponseHandler(status, response) {
   var $form = $('#payment-form');
@@ -30,16 +26,17 @@ function stripeResponseHandler(status, response) {
 };
 
 $(document).ready(function() {
-  $("#use_saved_card").on("click", toggleCreditCardFields);
+  $('#payment-form').submit(onPaymentFormSubmit);
+  $('#use_saved_card').on('click', toggleCreditCardFields);
 });
 
-function toggleCreditCardFields(){
-  if ($("#use_saved_card")[0].checked == true) {
-    $(".credit-card").hide();
-    $(".billing-address").hide();
+function toggleCreditCardFields() {
+  if ($('#use_saved_card')[0].checked === true) {
+    $('.credit-card').hide();
+    $('.billing-address').hide();
   }
   else {
-    $(".credit-card").show();
-    $(".billing-address").show();
+    $('.credit-card').show();
+    $('.billing-address').show();
   }
 }
