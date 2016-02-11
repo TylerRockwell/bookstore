@@ -1,4 +1,7 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+  Stripe.setPublishableKey("<%= Rails.configuration.stripe[:publishable_key] %>");
+</script>
 
 <h2> Credit Card </h2>
 <%= label_tag :card_number, "Card Number" %>
@@ -12,5 +15,3 @@
 <%= text_field_tag :month, nil, size: 2, "data-stripe" => "exp-month" %>
 <%= label_tag :year %>
 <%= text_field_tag :year, nil, size: 4, "data-stripe" => "exp-year" %>
-
-<%= hidden_field_tag "stripe-publishable-key", @stripe_publishable_key %>
