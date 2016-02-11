@@ -2,7 +2,7 @@ class ChargesController < ApplicationController
   def new
     order = last_pending_order
     if order
-      @amount = order.total
+      @order = order.decorate
     else
       redirect_to books_path, alert: "You must buy something to check out"
     end

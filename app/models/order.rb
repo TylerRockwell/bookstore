@@ -11,6 +11,7 @@ class Order < ActiveRecord::Base
 
   delegate :name, to: :order_status, prefix: true
   delegate :email, to: :user, prefix: true
+  delegate :formatted_nicely, to: :shipping_address, prefix: true
 
   scope :pending, -> { where(order_status_id: OrderStatus.find_by(name: "Pending")) }
 

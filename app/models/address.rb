@@ -4,4 +4,8 @@ class Address < ActiveRecord::Base
 
   validates :street_number, :street_name, :city, presence: true
   validates :state, :zip, :order, presence: true
+
+  def formatted_nicely
+    "#{street_number} #{street_name} #{city}, #{state} #{zip}"
+  end
 end

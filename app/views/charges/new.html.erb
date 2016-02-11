@@ -1,5 +1,5 @@
 <%= form_tag charges_path do %>
-  <h3>Your order total is <%= @amount %></h3>
+  <h3>Your order total is <%= @order.total_in_dollars %></h3>
 
   <p>Please click confirm to place your order</p>
   <%= submit_tag "Confirm" %>
