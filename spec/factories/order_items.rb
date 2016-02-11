@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :order_item do
+    book
     book_title 'Working Title'
     order
     quantity 1

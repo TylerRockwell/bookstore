@@ -3,10 +3,14 @@ class BooksController < ApplicationController
   before_action :set_book, only: :show
 
   def index
-    @books = Book.search(params[:search])
-                 .order_by(params[:sort_field], params[:sort_order])
-                 .page(params[:page])
-    @sortable_fields = Book.sortable_fields
+    if params[:sort_field] == "Most popular"
+      @books = Kaminari.paginate_array(Book.most_popular).page(params[:page])
+    else
+      @books = Book.search(params[:search])
+                   .order_by(params[:sort_field], params[:sort_order])
+                   .page(params[:page])
+    end
+    @sortable_fields = Book.sort_options
   end
 
   def show
