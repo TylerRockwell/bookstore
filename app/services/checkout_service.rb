@@ -17,11 +17,11 @@ class CheckoutService
       return false
     end
 
-  rescue Stripe::CardError
-    return false
+    rescue Stripe::CardError
+      return false
 
-  rescue Stripe::InvalidRequestError
-    return false
+    rescue Stripe::InvalidRequestError
+      return false
   end
 
   private
@@ -46,11 +46,11 @@ class CheckoutService
       currency:     'usd'
     )
 
-  rescue Stripe::CardError
-    return false
+    rescue Stripe::CardError
+      return false
 
-  rescue Stripe::InvalidRequestError
-    return false
+    rescue Stripe::InvalidRequestError
+      return false
   end
 
   def finalize
