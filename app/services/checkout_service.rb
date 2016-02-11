@@ -16,6 +16,12 @@ class CheckoutService
     else
       return false
     end
+
+  rescue Stripe::CardError
+    return false
+
+  rescue Stripe::InvalidRequestError
+    return false
   end
 
   private
@@ -40,10 +46,10 @@ class CheckoutService
       currency:     'usd'
     )
 
-  rescue Stripe::CardError => e
+  rescue Stripe::CardError
     return false
 
-  rescue Stripe::InvalidRequestError => e
+  rescue Stripe::InvalidRequestError
     return false
   end
 
