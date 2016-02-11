@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
+  describe "associations" do
+    it { is_expected.to have_many(:order_items) }
+  end
+
   describe "validations" do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:published_date) }
@@ -8,7 +12,7 @@ RSpec.describe Book, type: :model do
     it { is_expected.to validate_presence_of(:price) }
   end
 
-  describe "#order_by(field)" do
+  describe ".order_by(field)" do
     context "when parameter is title" do
       let!(:book_b) { create(:book, title: "Breaking Even: A Practical Guide") }
       let!(:book_a) { create(:book, title: "Almost There: When to Give Up on Your Dreams") }
@@ -29,8 +33,22 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe ".searchable_fields" do
+  describe ".sort_options" do
     it "returns a list of all fields that can be used for sorting" do
+      expect(Book.sort_options).to eq(
+        [
+          ["Title", "title"],
+          ["Published date", "published_date"],
+          ["Author", "author"], ["Price", "price"],
+          ["Category", "category"],
+          ["Most popular"]
+        ]
+      )
+    end
+  end
+
+  describe ".searchable_fields" do
+    it "returns a list of all fields that can be used for searching" do
       expect(Book.searchable_fields).to eq(
         [:title, :published_date, :author, :price, :category]
       )
@@ -70,6 +88,30 @@ RSpec.describe Book, type: :model do
 
       expect(Book.search("Non-fiction")).to include(matching_book)
       expect(Book.search("Non-fiction")).to_not include(irrelevant_book)
+    end
+  end
+
+  describe "#times_sold" do
+    let(:book) { create(:book) }
+    context "when there are no sales" do
+      it "returns 0" do
+        expect(book.times_sold).to eq(0)
+      end
+    end
+
+    context "when there is 1 sale" do
+      let!(:sale) { create(:order_item, book: book, quantity: 1) }
+      it "returns 1" do
+        expect(book.times_sold).to eq(1)
+      end
+    end
+
+    context "when there are multiple sales" do
+      let!(:sale1) { create(:order_item, book: book, quantity: 4) }
+      let!(:sale2) { create(:order_item, book: book, quantity: 5) }
+      it "returns the sum of all the sales" do
+        expect(book.times_sold).to eq(9)
+      end
     end
   end
 end
