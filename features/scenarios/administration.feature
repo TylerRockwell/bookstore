@@ -37,7 +37,7 @@ Feature: Bookstore Administration Panel
     Then I see the book "Test Book"
     When I visit the public book index
     Then I see the book "Test Book"
-      And I see the book published date "2015-08-10"
+      And I see the book published date "August 10, 2015"
       And I see the book author "Some Person"
 
   @javascript

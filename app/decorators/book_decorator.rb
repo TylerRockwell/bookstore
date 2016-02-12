@@ -9,8 +9,4 @@ class BookDecorator < ApplicationDecorator
   def published_date_written
     published_date.strftime("%B %d, %Y")
   end
-
-  def published_date_mm_dd_yyyy
-    published_date.strftime("%m %d %Y")
-  end
 end

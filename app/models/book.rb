@@ -31,4 +31,8 @@ class Book < ActiveRecord::Base
   def times_sold
     order_items.sum(:quantity)
   end
+
+  def published_date_written
+    published_date.strftime("%B %d, %Y")
+  end
 end
