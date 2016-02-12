@@ -1,8 +1,6 @@
 # Base Example
 [production]
-162.243.113.173 be_app_env=production be_app_branch=master
-
-[omnibox:children]
+162.243.113.173 be_app_env=production be_app_branch=deployment
 
 # Vagrant Example
 # [omnibox]
