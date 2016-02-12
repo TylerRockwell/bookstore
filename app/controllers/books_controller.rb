@@ -8,7 +8,7 @@ class BooksController < ApplicationController
                        .page(params[:page])
 
     else
-      @books = Book.search(params[:search])
+      @books = Book.ransack(params[:search]).result
                    .order_by(params[:sort_field], params[:sort_order])
                    .page(params[:page])
                    .decorate

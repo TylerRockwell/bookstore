@@ -20,7 +20,7 @@ class Book < ActiveRecord::Base
   end
 
   def self.searchable_fields
-    [:title, :published_date, :author, :price, :category]
+    [:title, :author, :category]
   end
 
   def self.search(query)
