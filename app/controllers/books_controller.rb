@@ -4,11 +4,14 @@ class BooksController < ApplicationController
 
   def index
     if params[:sort_field] == "Most popular"
-      @books = Kaminari.paginate_array(Book.most_popular).page(params[:page])
+      @books = Kaminari.paginate_array(Book.search(params[:search]).most_popular)
+                       .page(params[:page])
+
     else
       @books = Book.search(params[:search])
                    .order_by(params[:sort_field], params[:sort_order])
                    .page(params[:page])
+                   .decorate
     end
     @sortable_fields = Book.sort_options
   end
@@ -20,6 +23,6 @@ class BooksController < ApplicationController
   private
 
   def set_book
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:id]).decorate
   end
 end

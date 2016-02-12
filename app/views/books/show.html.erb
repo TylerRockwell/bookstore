@@ -1,13 +1,13 @@
 <div class="col-md-6 col-md-offset-2" >
   <p id="book-show-title"> <%= @book.title %> </p>
   <p id="book-show-author"> written by <%= @book.author %> </p>
-  <p> published <%= @book.published_date %> </p>
+  <p> published <%= @book.published_date_written %> </p>
   <h4> Synopsis: </h4>
   <p> <%= @book.description %> </p>
   <h4> Genre: </h4>
   <p> <%= @book.category %> </p>
 
-  <h4> Buy it now for only $<%= @book.price %></h4>
+  <h4> Buy it now for only <%= @book.price_in_dollars %></h4>
   <%= simple_form_for(@line_item) do |f| %>
     <%= f.input :book_id, as: :hidden, input_html: { value: @book.id } %>
     <%= f.input :quantity, input_html: { value: 1 } %>

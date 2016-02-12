@@ -18,8 +18,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.includes(:order_items).find_by(id: params[:id])
-    @order_items = @order.order_items
+    @order = Order.includes(:order_items).find_by(id: params[:id]).decorate
+    @order_items = @order.order_items.decorate
   end
 
   private

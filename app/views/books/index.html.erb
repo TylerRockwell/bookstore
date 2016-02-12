@@ -5,7 +5,7 @@
   <div class="col-md-2">Author</div>
   <div class="col-md-2">Published Date</div>
   <div class="col-md-1">Price</div>
-  <div class="col-md-2">Category</div>
+  <div class="col-md-3">Category</div>
 </div>
 
 <div class="store-book-list">
@@ -13,9 +13,9 @@
     <div class="row">
       <div class="col-md-3 store-book-title"><%= link_to book.title, book_path(book) %></div>
       <div class="col-md-2 store-book-author"><%= book.author %></div>
-      <div class="col-md-2 store-book-published-date"><%= book.published_date %></div>
-      <div class="col-md-1 store-book-price">$<%= book.price %></div>
-      <div class="col-md-2 store-book-category"><%= book.category %></div>
+      <div class="col-md-2 store-book-published-date"><%= book.published_date.strftime("%B %d, %Y") %></div>
+      <div class="col-md-1 store-book-price"><%= number_to_currency(book.price) %></div>
+      <div class="col-md-3 store-book-category"><%= book.category %></div>
     </div>
   <% end %>
 </div>
