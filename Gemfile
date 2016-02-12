@@ -36,12 +36,12 @@ gem 'unicorn'
 
 # Use taperole for deployment
 gem 'taperole', '~> 1.3'
-
+# Get some great fake data for seeds
+gem 'faker'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
-  # Get some great fake data for seeds
-  gem 'faker'
+
   # Use rspec for testing suite
   gem 'rspec-rails'
   # Use sqlite3 as the database for Active Record
