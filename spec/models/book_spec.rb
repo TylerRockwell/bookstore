@@ -61,7 +61,7 @@ RSpec.describe Book, type: :model do
     it "searches books on all user-facing fields" do
       expect(Book.search("Corners")).to include(matching_book)
       expect(Book.search("Corners")).to_not include(irrelevant_book)
-      
+
       expect(Book.search("Roger")).to include(matching_book)
       expect(Book.search("Roger")).to_not include(irrelevant_book)
 
