@@ -13,8 +13,8 @@ module Bookstore
       address:              'smtp.mailgun.org',
       port:                 587,
       domain:               'example.com',
-      user_name:            ENV["MAILGUN_USERNAME"],
-      password:             ENV["MAILGUN_PASSWORD"],
+      user_name:            Rails.application.secrets.mailgun["username"],
+      password:             Rails.application.secrets.mailgun["password"],
       authentication:       'plain',
       enable_starttls_auto: true }
   end

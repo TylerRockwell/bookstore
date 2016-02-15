@@ -32,7 +32,7 @@ RSpec.describe Book, type: :model do
   describe ".searchable_fields" do
     it "returns a list of all fields that can be used for sorting" do
       expect(Book.searchable_fields).to eq(
-        [:title, :published_date, :author, :price, :category]
+        [:title, :author, :category]
       )
     end
   end
@@ -61,9 +61,6 @@ RSpec.describe Book, type: :model do
     it "searches books on all user-facing fields" do
       expect(Book.search("Corners")).to include(matching_book)
       expect(Book.search("Corners")).to_not include(irrelevant_book)
-
-      expect(Book.search(Date.today.year)).to include(matching_book)
-      expect(Book.search(Date.today.year)).to_not include(irrelevant_book)
 
       expect(Book.search("Roger")).to include(matching_book)
       expect(Book.search("Roger")).to_not include(irrelevant_book)

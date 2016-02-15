@@ -12,7 +12,5 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
   config.log_formatter = ::Logger::Formatter.new
   config.active_record.dump_schema_after_migration = false
-  #ignore email for now
-  config.action_mailer.delivery_method = :test
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { host: '162.243.113.173' }
 end
