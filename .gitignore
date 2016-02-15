@@ -15,3 +15,8 @@
 /log/*
 !/log/.keep
 /tmp
+.tape
+
+# Ignore this stuff for Taperole
+config/secrets.yml
+config/database.yml

@@ -1,0 +1,14 @@
+app_name: rails_bookstore
+
+# Rails App Configs
+be_app_repo: https://github.com/TylerRockwell/bookstore
+
+# HTML/JS App Configs
+# Uncomment if you want to deploy a JS/HTML App
+# fe_app_repo:
+# fe_app_branch: master
+# fe_build_command: gulp build
+dev_key_files:
+  - dev_keys/tylerr.pub
+
+slack_webhook_url:

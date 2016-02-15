@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160210181928) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: :cascade do |t|
     t.integer  "street_number"
     t.string   "street_name"
@@ -20,16 +23,14 @@ ActiveRecord::Schema.define(version: 20160210181928) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.integer  "address_type_id"
     t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "order_id"
   end
 
-  add_index "addresses", ["address_type_id"], name: "index_addresses_on_address_type_id"
-  add_index "addresses", ["order_id"], name: "index_addresses_on_order_id"
-  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
+  add_index "addresses", ["order_id"], name: "index_addresses_on_order_id", using: :btree
+  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -46,8 +47,8 @@ ActiveRecord::Schema.define(version: 20160210181928) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
-  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "books", force: :cascade do |t|
     t.string   "title"
@@ -66,7 +67,7 @@ ActiveRecord::Schema.define(version: 20160210181928) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "carts", ["user_id"], name: "index_carts_on_user_id"
+  add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "line_items", force: :cascade do |t|
     t.integer  "cart_id"
@@ -76,8 +77,8 @@ ActiveRecord::Schema.define(version: 20160210181928) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "line_items", ["book_id"], name: "index_line_items_on_book_id"
-  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id"
+  add_index "line_items", ["book_id"], name: "index_line_items_on_book_id", using: :btree
+  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "book_id"
@@ -90,8 +91,8 @@ ActiveRecord::Schema.define(version: 20160210181928) do
     t.string   "book_title"
   end
 
-  add_index "order_items", ["book_id"], name: "index_order_items_on_book_id"
-  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+  add_index "order_items", ["book_id"], name: "index_order_items_on_book_id", using: :btree
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
 
   create_table "order_statuses", force: :cascade do |t|
     t.string   "name"
@@ -106,7 +107,7 @@ ActiveRecord::Schema.define(version: 20160210181928) do
     t.integer  "user_id"
   end
 
-  add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id"
+  add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -128,8 +129,16 @@ ActiveRecord::Schema.define(version: 20160210181928) do
     t.string   "stripe_customer_id"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "addresses", "orders"
+  add_foreign_key "addresses", "users"
+  add_foreign_key "carts", "users"
+  add_foreign_key "line_items", "books"
+  add_foreign_key "line_items", "carts"
+  add_foreign_key "order_items", "books"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "order_statuses"
 end
