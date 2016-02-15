@@ -15,11 +15,21 @@
 
 <div class="store-book-list">
   <% @books.each do |book| %>
-    <div class="row">
-      <div class="col-md-3 store-book-title"><%= link_to book.title, book_path(book) %></div>
+    <div class="row <%= cycle("even", "odd") %>">
+      <div class="col-md-3 store-book-title">
+        <%= link_to book.title, admin_api_book_path(book) %>
+      </div>
       <div class="col-md-2 store-book-author"><%= book.author %></div>
       <div class="col-md-2 store-book-published-date"><%= book.published_date %></div>
-      <div class="col-md-1 store-book-price">$<%= book.price %></div>
+      <div class="col-md-1 store-book-price">
+        <% if book.discounted_price %>
+          <div class="list-price"><%= book.price_in_dollars %></div>
+          <div class="sale-price"><%= number_to_currency(book.lowest_price) %></div>
+        <% else %>
+          <%= book.lowest_price %>
+        <% end %>
+
+      </div>
       <div class="col-md-2 store-book-category"><%= book.category %></div>
       <div class="col-md-1 store-book-edit">
         <%= link_to 'Edit', edit_admin_api_book_path(book) %>
@@ -28,7 +38,7 @@
         <%= link_to 'Delete', admin_api_book_path(book), method: :delete,
           data: { confirm: 'Are you sure?' } %>
       </div>
-
+      <hr />
     </div>
   <% end %>
 </div>

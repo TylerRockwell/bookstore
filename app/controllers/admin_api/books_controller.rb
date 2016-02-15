@@ -6,6 +6,7 @@ class AdminApi::BooksController < ApplicationController
     @books = Book.search(params[:search])
                  .order_by(params[:sort_field], params[:sort_order])
                  .page(params[:page])
+                 .decorate
     @sortable_fields = Book.sort_options
   end
 
@@ -15,7 +16,7 @@ class AdminApi::BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-
+    @book.process_discounts
     if @book.save
       redirect_to admin_api_books_path, notice: "Book was successfully created"
     else
@@ -28,7 +29,7 @@ class AdminApi::BooksController < ApplicationController
 
   def update
     @book.update(book_params)
-
+    @book.process_discounts
     if @book.save
       redirect_to admin_api_books_path, notice: "Book was successfully updated"
     else
@@ -53,7 +54,19 @@ class AdminApi::BooksController < ApplicationController
     params.require(:book).permit(:title, :author, :published_date, :price, :category)
   end
 
+  def discount_params
+    params.permit(:discount_amount, :discount_type)
+  end
+
   def set_book
     @book = Book.find(params[:id])
+  end
+
+  def process_discounts
+    if params[:discount_amount]
+      @book.apply_discount
+    else
+      @book.remove_discount
+    end
   end
 end

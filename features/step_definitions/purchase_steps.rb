@@ -86,7 +86,7 @@ Then(/^I see the book in my cart with quantity (\d+)$/) do |number|
 end
 
 Then(/^I am asked to review the order total$/) do
-  expect(page).to have_content@book.price
+  expect(page).to have_content@book.lowest_price
 end
 
 Then(/^my credit card is saved for future purchases$/) do
@@ -95,6 +95,6 @@ end
 
 Then(/^I am emailed an order invoice containing the books details, quantity, and order total$/) do
   expect(last_email.body.encoded).to include(@book.title)
-  expect(last_email.body.encoded).to include(@book.price.to_s)
+  expect(last_email.body.encoded).to include(@book.lowest_price.to_s)
   expect(last_email.body.encoded).to include(@user.orders.last.total.to_s)
 end

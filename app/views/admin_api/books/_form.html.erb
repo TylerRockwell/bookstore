@@ -10,7 +10,16 @@
     <%= f.input :price %>
     <%= f.input :category %>
 
-    <%= f.button :submit, "Submit" %>
+    <div class="form-group">
+      <p><%= label_tag :discount_amount %></p>
+      <p><%= number_field_tag :discount_amount %></p>
+    </div>
 
+    <div class="form-group">
+      <p><%= label_tag :discount_type %></p>
+      <p><%= text_field_tag :discount_type %></p>
+    </div>
+
+    <%= f.button :submit, "Submit" %>
   <% end %>
 </div>

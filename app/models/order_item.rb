@@ -9,7 +9,7 @@ class OrderItem < ActiveRecord::Base
     self.book = line_item.book
     self.book_title = line_item.book.title
     self.quantity = line_item.quantity
-    self.unit_price = line_item.book.price
+    self.unit_price = line_item.book.lowest_price
     self.total_price = unit_price * quantity
   end
 end
