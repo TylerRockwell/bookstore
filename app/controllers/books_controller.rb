@@ -6,7 +6,6 @@ class BooksController < ApplicationController
     if params[:sort_field] == "Most popular"
       @books = Kaminari.paginate_array(Book.search(params[:search]).most_popular)
                        .page(params[:page])
-
     else
       @books = Book.search(params[:search])
                    .order_by(params[:sort_field], params[:sort_order])

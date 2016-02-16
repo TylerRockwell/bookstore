@@ -28,11 +28,15 @@ Given(/^there is a book named "([^"]*)"$/) do |book_title|
 end
 
 Given(/^there is a book named "([^"]*)" valued at "([^"]*)"$/) do |book_title, price|
-  FactoryGirl.create(:book, title: book_title, price: price)
+  @book = FactoryGirl.create(:book, title: book_title, price: price)
 end
 
 Given(/^There are orders$/) do
   @orders = FactoryGirl.create_list(:order, 20)
+end
+
+Given(/^the book has a discount of (\d+) dollars$/) do |amount|
+  @book.apply_discount(discount_type: "dollars", discount_amount: amount)
 end
 
 When(/^I click "([^"]*)" for the book "([^"]*)"$/) do |link_text, book_title|
@@ -97,6 +101,19 @@ end
 
 When(/^I visit the admin order index$/) do
   click_link "View a list of orders"
+end
+
+When(/^I apply a discount of (\d+) "([^"]*)"$/) do |amount, type|
+  fill_in "Discount amount", with: amount
+  choose "discount_type_#{type}"
+end
+
+When(/^I leave the discount fields blank$/) do
+  fill_in "Discount amount", with: ""
+end
+
+Then(/^I see the book with a price of "([^"]*)" dollars$/) do |price|
+  expect(page).to have_content(price)
 end
 
 Then(/^I see the admin panel$/) do

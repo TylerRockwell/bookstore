@@ -40,7 +40,7 @@ class Book < ActiveRecord::Base
     if args[:discount_type] == "dollars"
       self.discounted_price = price - args[:discount_amount].to_f
     elsif args[:discount_type] == "percent"
-      self.discounted_price = price * (1 - args[:discount_amount].to_f)
+      self.discounted_price = price * (1 - args[:discount_amount].to_f / 100)
     end
   end
 

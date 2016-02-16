@@ -9,21 +9,7 @@
 </div>
 
 <div class="store-book-list">
-  <% @books.each do |book| %>
-    <div class="row <%= cycle("even", "odd") %>">
-      <div class="col-md-3 store-book-title"><%= link_to book.title, book_path(book) %></div>
-      <div class="col-md-2 store-book-author"><%= book.author %></div>
-      <div class="col-md-2 store-book-published-date"><%= book.published_date.strftime("%B %d, %Y") %></div>
-      <div class="col-md-1 store-book-price">
-        <% if book.discounted_price %>
-          <div class="list-price"><%= number_to_currency(book.price) %></div>
-          <div class="sale-price"><%= number_to_currency(book.lowest_price) %></div>
-        <% else %>
-          <%= book.lowest_price %>
-        <% end %>
-      </div>
-      <div class="col-md-3 store-book-category"><%= book.category %></div>
-    </div>
-  <% end %>
+  <%= render @books %>
 </div>
+
 <%= paginate @books %>

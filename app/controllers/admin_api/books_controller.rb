@@ -3,10 +3,15 @@ class AdminApi::BooksController < ApplicationController
   before_action :set_book, only: [:edit, :update, :destroy, :show]
 
   def index
-    @books = Book.search(params[:search])
-                 .order_by(params[:sort_field], params[:sort_order])
-                 .page(params[:page])
-                 .decorate
+    if params[:sort_field] == "Most popular"
+      @books = Kaminari.paginate_array(Book.search(params[:search]).most_popular)
+                       .page(params[:page])
+    else
+      @books = Book.search(params[:search])
+                   .order_by(params[:sort_field], params[:sort_order])
+                   .page(params[:page])
+                   .decorate
+    end
     @sortable_fields = Book.sort_options
   end
 
@@ -16,7 +21,7 @@ class AdminApi::BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    @book.process_discounts
+    process_discounts
     if @book.save
       redirect_to admin_api_books_path, notice: "Book was successfully created"
     else
@@ -29,7 +34,7 @@ class AdminApi::BooksController < ApplicationController
 
   def update
     @book.update(book_params)
-    @book.process_discounts
+    process_discounts
     if @book.save
       redirect_to admin_api_books_path, notice: "Book was successfully updated"
     else
@@ -63,10 +68,10 @@ class AdminApi::BooksController < ApplicationController
   end
 
   def process_discounts
-    if params[:discount_amount]
-      @book.apply_discount
-    else
+    if params[:discount_amount] == ""
       @book.remove_discount
+    else
+      @book.apply_discount(discount_params)
     end
   end
 end
