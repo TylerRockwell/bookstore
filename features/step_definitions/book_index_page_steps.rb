@@ -24,8 +24,8 @@ Then(/^I see a list of books in the database$/) do
 end
 
 Then(/^the books are ordered by published date$/) do
-  expect(page).to have_content(Book.by_published.first.published_date_written)
-  expect(page).to_not have_content(Book.by_published.last.published_date_written)
+  expect(page).to have_content(Book.by_published.first.decorate.published_date_written)
+  expect(page).to_not have_content(Book.by_published.last.decorate.published_date_written)
 end
 
 Then(/^the list of books is paginated (\d+) books per page$/) do |books_per_page|

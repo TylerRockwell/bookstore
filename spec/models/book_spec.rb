@@ -8,6 +8,21 @@ RSpec.describe Book, type: :model do
     it { is_expected.to validate_presence_of(:price) }
   end
 
+  describe ".most_popular" do
+    let!(:book_a) { create(:book, title: "0 SALES Almost There: When to Give Up on Your Dreams") }
+    let!(:book_c) { create(:book, title: "5 SALES Gambling: Betting the house on the horse") }
+    let!(:book_b) { create(:book, title: "3 SALES Breaking Even: A Practical Guide") }
+    let!(:book_d) { create(:book, title: "4 SALES Because why not") }
+    let!(:book_c_orders) { create(:order_item, book: book_c, quantity: 5) }
+    let!(:book_b_orders) { create(:order_item, book: book_b, quantity: 2) }
+    let!(:book_b_orders2) { create(:order_item, book: book_b, quantity: 1) }
+    let!(:book_d_orders) { create(:order_item, book: book_d, quantity: 6) }
+
+    it "returns all books ordered by number of sales" do
+      expect(Book.most_popular).to eq([book_d, book_c, book_b, book_a])
+    end
+  end
+
   describe "#order_by(field)" do
     context "when parameter is title" do
       let!(:book_b) { create(:book, title: "Breaking Even: A Practical Guide") }

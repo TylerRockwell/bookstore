@@ -3,15 +3,8 @@
     <%= link_to book.title, admin_api_book_path(book) %>
   </div>
   <div class="col-md-2 store-book-author"><%= book.author %></div>
-  <div class="col-md-2 store-book-published-date"><%= book.published_date %></div>
-  <div class="col-md-1 store-book-price">
-    <% if book.discounted_price %>
-      <div class="list-price"><%= number_to_currency(book.price) %></div>
-      <div class="sale-price"><%= number_to_currency(book.lowest_price) %></div>
-    <% else %>
-      <%= number_to_currency(book.lowest_price) %>
-    <% end %>
-  </div>
+  <div class="col-md-2 store-book-published-date"><%= book.published_date_written %></div>
+  <div class="col-md-1 store-book-price"><%= book.display_lowest_price %></div>
   <div class="col-md-2 store-book-category"><%= book.category %></div>
   <div class="col-md-1 store-book-edit">
     <%= link_to 'Edit', edit_admin_api_book_path(book) %>

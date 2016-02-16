@@ -3,8 +3,12 @@ class Book < ActiveRecord::Base
   has_many :order_items
 
   scope :by_published, -> { order(published_date: :desc) }
-  scope :most_popular, -> { all.includes(:order_items).sort_by(&:times_sold).reverse! }
-
+  scope :most_popular, lambda {
+    joins("LEFT OUTER JOIN order_items ON order_items.book_id = books.id")
+      .select("books.*, coalesce(sum(order_items.quantity),0) AS total_quantity")
+      .group("books.id")
+      .order("total_quantity DESC")
+  }
   def self.order_by(field, list_order)
     if field
       order(field => list_order)
@@ -30,10 +34,6 @@ class Book < ActiveRecord::Base
 
   def times_sold
     order_items.sum(:quantity)
-  end
-
-  def published_date_written
-    published_date.strftime("%B %d, %Y")
   end
 
   def apply_discount(sale)
