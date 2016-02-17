@@ -3,7 +3,7 @@ class Book < ActiveRecord::Base
   has_many :order_items
 
   scope :by_published, -> { order(published_date: :desc) }
-  scope :most_popular, lambda {
+  scope :most_popular, lambda{ |*_args|
     joins("LEFT OUTER JOIN order_items ON order_items.book_id = books.id")
       .select("books.*, coalesce(sum(order_items.quantity),0) AS total_quantity")
       .group("books.id")

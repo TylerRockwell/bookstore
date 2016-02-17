@@ -3,17 +3,11 @@ class AdminApi::BooksController < ApplicationController
   before_action :set_book, only: [:edit, :update, :destroy, :show]
 
   def index
-    if params[:sort_field] == "Most popular"
-      @books = Book.search(params[:search])
-                   .most_popular
-                   .page(params[:page])
-                   .decorate
-    else
-      @books = Book.search(params[:search])
-                   .order_by(params[:sort_field], params[:sort_order])
-                   .page(params[:page])
-                   .decorate
-    end
+    scope = params[:sort_field] == "Most popular" ? :most_popular : :order_by
+    @books = Book.search(params[:search])
+                 .send(scope, params[:sort_field], params[:sort_order])
+                 .page(params[:page])
+                 .decorate
     @sortable_fields = Book.sort_options
   end
 
@@ -70,7 +64,7 @@ class AdminApi::BooksController < ApplicationController
   end
 
   def process_discounts
-    if params[:discount_amount] == ""
+    if params[:discount_amount].empty?
       @book.remove_discount
     else
       @book.apply_discount(discount_params)
