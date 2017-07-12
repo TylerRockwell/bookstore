@@ -57,7 +57,7 @@ Feature: Bookstore Administration Panel
   Scenario: Editing a book
     Given I am logged into the admin panel
       And I am logged into the site
-      And there is a book named "Book To Be Edited" valued at "$135.99"
+      And there is a book named "Book To Be Edited" valued at "135.99"
     When I visit the admin books url
       And I click "Edit" for the book "Book To Be Edited"
       And I change the book name to "Book That Has Been Edited"
@@ -73,3 +73,37 @@ Feature: Bookstore Administration Panel
       And There are orders
     When I visit the admin order index
     Then I see a list of orders placed on the site
+
+  Scenario: Discounting a book in dollars
+    Given I am logged into the admin panel
+      And I am logged into the site
+      And there is a book named "Book To Be Discounted" valued at "100.00"
+    When I visit the admin books url
+      And I click "Edit" for the book "Book To Be Discounted"
+      And I apply a discount of 10 "dollars"
+      And I click "Submit"
+      And I visit the admin books url
+    Then I see the book with a price of "$90.00" dollars
+
+  Scenario: Discounting a book by a percentage
+    Given I am logged into the admin panel
+      And I am logged into the site
+      And there is a book named "Book To Be Discounted" valued at "200.00"
+    When I visit the admin books url
+      And I click "Edit" for the book "Book To Be Discounted"
+      And I apply a discount of 20 "percent"
+      And I click "Submit"
+      And I visit the admin books url
+    Then I see the book with a price of "$160.00" dollars
+
+  Scenario: Removing a discount from a book
+    Given I am logged into the admin panel
+      And I am logged into the site
+      And there is a book named "Discounted book" valued at "200.00"
+      And the book has a discount of 20 dollars
+    When I visit the admin books url
+      And I click "Edit" for the book "Discounted book"
+      And I leave the discount fields blank
+      And I click "Submit"
+      And I visit the admin books url
+    Then I see the book with a price of "$200.00" dollars

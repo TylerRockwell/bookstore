@@ -7,7 +7,7 @@
   <h4> Genre: </h4>
   <p> <%= @book.category %> </p>
 
-  <h4> Buy it now for only <%= @book.price_in_dollars %></h4>
+  <h4> Buy it now for only <%= number_to_currency(@book.lowest_price) %></h4>
   <%= simple_form_for(@line_item) do |f| %>
     <%= f.input :book_id, as: :hidden, input_html: { value: @book.id } %>
     <%= f.input :quantity, input_html: { value: 1 } %>

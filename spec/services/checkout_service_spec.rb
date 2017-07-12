@@ -5,7 +5,8 @@ RSpec.describe CheckoutService do
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:user) { create(:user) }
-  let(:order) { create(:order) }
+  let(:shipping_address) { create(:address) }
+  let(:order) { shipping_address.order }
   let(:stripe_token) { stripe_helper.generate_card_token }
   let(:checkout) { CheckoutService.new(user, order, stripe_token) }
   describe "#initialize" do

@@ -35,4 +35,26 @@ class Book < ActiveRecord::Base
   def published_date_written
     published_date.strftime("%B %d, %Y")
   end
+
+  def apply_discount(sale)
+    self.discounted_price = price - discount_amount(sale[:discount_amount], sale[:discount_type])
+  end
+
+  def remove_discount
+    self.discounted_price = nil
+  end
+
+  def lowest_price
+    discounted_price || price
+  end
+
+  private
+
+  def discount_amount(amount, type)
+    if type == "percent"
+      price * (amount.to_f / 100)
+    else
+      amount.to_f
+    end
+  end
 end

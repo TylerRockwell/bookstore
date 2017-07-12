@@ -6,7 +6,7 @@ class LineItem < ActiveRecord::Base
   delegate :title, to: :book
 
   def unit_price
-    book.price
+    book.lowest_price
   end
 
   def total_price
